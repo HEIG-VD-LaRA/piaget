@@ -1,0 +1,56 @@
+This manual is an unofficial manual created to help the user who have never use RHY before. 
+This manual should help you understand some basic functions, features, and its capability of this robots including its codes.
+
+***Introduction***
+As you might have guess already, this robot was programmed using C++ programming language.  Most of the Program are divided into tasks system
+where the program will go through these various tasks starting from task 1 to task 21 **require update if needed**
+which are as follow:
+ ,
+  Task02(); // Faire un pas  move a little bit 
+  Task03(); // Lire clavier  read keyboard
+  Task04(); // Mouvements PTP move point to point
+  Task05(); // Stratégie
+  Task06(); // Entrées / Sortie  IO
+  Task07(); // Affichage         Display
+  Task08(); // Mouvements spatiaux  special movement for computing position of the robot
+  Task09(); // (* Gestion de la diode fonctionnement *) Led blinking
+  Task10(); // Analyse d'images
+  Task11(); // GestionServoCommandesUSB    usb motor controller no use
+  Task12(); // ajustement de la charge
+  Task13(); 	// Tester Entree   -----------no use---------
+  Task14(); // Communication
+  Task15(); // Mesures plan laser
+  Task18(); // Interpréteur Piaget  Multi tasking management
+  Task19(); // Voice dictation
+  Task20(); // Dialogue Manager   
+  Task21(); // Map Manager
+
+with the exclusion of task11 and task12 which are not in use anymore.
+
+Most of the coding will be located in Task5 which is the most basic level of coding.  Eventhough it's level1 coding, this task bear the most 
+effect on the robot's action and "Stratégie."
+
+
+***Task5***
+Like the main program, Task5 are divided into seperate "region" to perform different task base on what the goal the robot
+need to meet before it finish.  Here are some of the regions that we had used:
+
+Case 4xx		: deals with Navigation to set waypoint.
+Case 15x and 4xxx	: deals with Follow and Guide
+Case 7xxx		: deals with Who's Who
+
+
+***To begin***
+After you run the program, you need to select the task for the robot to do.  It's located on the Console right below "Saved," "Reset," and "Quit."
+
+After the task is selected, you can give the Robot it Vocal Command "Go" and it will proceed as given.
+
+
+****
+By Chayapol C.
+****
+
+
+
+
+

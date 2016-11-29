@@ -1,0 +1,177 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Piaget_CSharp.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="sTicksPerSecond" Description="typ.: 100k (indicateur de performances)" Type="System.Int64" Scope="User">
+      <Value Profile="(Default)">5678</Value>
+    </Setting>
+    <Setting Name="sPasParCmGaucheRH" Description="PasParCmGauche=4*17.9500 (RHY)" Type="System.Single" Scope="User">
+      <Value Profile="(Default)">96.69</Value>
+    </Setting>
+    <Setting Name="sPasParCmDroiteRH" Description="PasParCmDroite=4*17.9500 (RHY)" Type="System.Single" Scope="User">
+      <Value Profile="(Default)">96.69</Value>
+    </Setting>
+    <Setting Name="sPasParCmGaucheOP" Description="typ.: 86.5" Type="System.Single" Scope="User">
+      <Value Profile="(Default)">48.7</Value>
+    </Setting>
+    <Setting Name="sPasParCmDroiteOP" Description="typ.: 86.5" Type="System.Single" Scope="User">
+      <Value Profile="(Default)">48.7</Value>
+    </Setting>
+    <Setting Name="sPasParDegreGaucheOP" Description="typ. 13.5" Type="System.Single" Scope="User">
+      <Value Profile="(Default)">13.5</Value>
+    </Setting>
+    <Setting Name="sPasParDegreDroiteOP" Description="13.5" Type="System.Single" Scope="User">
+      <Value Profile="(Default)">13.5</Value>
+    </Setting>
+    <Setting Name="sDemiEcartRouesExtOP" Description="Dude 9.6cm" Type="System.Single" Scope="User">
+      <Value Profile="(Default)">40</Value>
+    </Setting>
+    <Setting Name="sDemiEcartRouesExtRH" Type="System.Single" Scope="User">
+      <Value Profile="(Default)">19.5</Value>
+    </Setting>
+    <Setting Name="sModeRHYorOPYlow" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="sPasParDegreGaucheRH" Type="System.Single" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="sPasParDegreDroiteRH" Type="System.Single" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="sPasParDegreRobotGaucheOP" Type="System.Single" Scope="User">
+      <Value Profile="(Default)">16.4</Value>
+    </Setting>
+    <Setting Name="sPasParDegreRobotDroiteOP" Type="System.Single" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="sPasParDegreRobotDroiteRH" Type="System.Single" Scope="User">
+      <Value Profile="(Default)">16.4</Value>
+    </Setting>
+    <Setting Name="sPasParDegreRobotGaucheRH" Type="System.Single" Scope="User">
+      <Value Profile="(Default)">32.64</Value>
+    </Setting>
+    <Setting Name="sPasParCmGaucheOP12Y" Type="System.Single" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="sPasParCmDroiteOP12Y" Type="System.Single" Scope="User">
+      <Value Profile="(Default)">10000</Value>
+    </Setting>
+    <Setting Name="sPasParDegreRobotGaucheOP12Y" Type="System.Single" Scope="User">
+      <Value Profile="(Default)">5000</Value>
+    </Setting>
+    <Setting Name="sPasParDegreRobotDroiteOP12Y" Type="System.Single" Scope="User">
+      <Value Profile="(Default)">5000</Value>
+    </Setting>
+    <Setting Name="sDemiEcartRouesExtOP12Y" Type="System.Single" Scope="User">
+      <Value Profile="(Default)">60</Value>
+    </Setting>
+    <Setting Name="sPasParDegreRoueOP12Y" Type="System.Single" Scope="User">
+      <Value Profile="(Default)">200</Value>
+    </Setting>
+    <Setting Name="sInverseSensLineaire" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="sInverseSensRotation" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="sInverseCoteRotationXCentree" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="sVitesseMaxGlobale" Type="System.Single" Scope="User">
+      <Value Profile="(Default)">42.21</Value>
+    </Setting>
+    <Setting Name="sAccelerationMaxGlobale" Type="System.Single" Scope="User">
+      <Value Profile="(Default)">31</Value>
+    </Setting>
+    <Setting Name="sReductionDAccelerationEnRotation" Type="System.Single" Scope="User">
+      <Value Profile="(Default)">2.49</Value>
+    </Setting>
+    <Setting Name="sFacteurDecelerationMax" Type="System.Single" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="sModeReglageNoirBlanc" Type="System.Single" Scope="User">
+      <Value Profile="(Default)">6</Value>
+    </Setting>
+    <Setting Name="sModeReglageTeinte" Type="System.Single" Scope="User">
+      <Value Profile="(Default)">4</Value>
+    </Setting>
+    <Setting Name="sModeImage" Type="System.Single" Scope="User">
+      <Value Profile="(Default)">9</Value>
+    </Setting>
+    <Setting Name="sRAHColor1de9" Type="System.String" Scope="User">
+      <Value Profile="(Default)">3</Value>
+    </Setting>
+    <Setting Name="Setting" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="sP0Robot_AngleRobotTraj" Type="System.Single" Scope="User">
+      <Value Profile="(Default)">90</Value>
+    </Setting>
+    <Setting Name="sP0Robot_AngleTrajectoire" Type="System.Single" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="sP0Robot_ds" Type="System.Single" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="sP0Robot_RayonTrajectoire" Type="System.Single" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="sP0Robot_ThetaRobotDegres" Type="System.Single" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="sP0Robot_x" Type="System.Single" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="sP0Robot_y" Type="System.Single" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="sChoix_NCSimulation_Etat" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="sChoix_NCGalilM27_Etat" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="sChoix_NCGalil_Etat" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="sChoixGalilFront" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="sChoixGalilBack" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="sPlatform" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">4</Value>
+    </Setting>
+    <Setting Name="sChoix_NCShoulder_Etat" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="sChoix_NCHand_Etat" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="sChoixLaserA" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="sChoixLaserB" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="sChoixLaserC" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="sChoix_NCCamera_Etat" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="sChoix_NCBeckhoff_Etat" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="sModeNewLaser" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="sKinectConnection" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="sSimulationImageNumber" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

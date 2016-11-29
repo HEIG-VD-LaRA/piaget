@@ -1,0 +1,284 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B0CEA4BF-5736-48ED-9C5C-5144638B0B75}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Piaget_CSharp</RootNamespace>
+    <AssemblyName>Piaget-CSharp</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ManifestCertificateThumbprint>CAB25C05593EF868FFBA0BF495ED40CBEE7599FD</ManifestCertificateThumbprint>
+    <ManifestKeyFile>Piaget-CSharp_TemporaryKey.pfx</ManifestKeyFile>
+    <GenerateManifests>false</GenerateManifests>
+    <SignManifests>false</SignManifests>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Harware|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Harware\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;SimulationOnly</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AForge.Video">
+      <HintPath>lib\AForge.Video.dll</HintPath>
+    </Reference>
+    <Reference Include="AForge.Video.DirectShow">
+      <HintPath>lib\AForge.Video.DirectShow.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.Galil">
+      <HintPath>lib\Interop.Galil.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Microsoft.VisualBasic.PowerPacks.Vs, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Speech" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ConfigReadWrite.cs" />
+    <Compile Include="FApiBC9020.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FApiBC9020.designer.cs">
+      <DependentUpon>FApiBC9020.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FChat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FChat.Designer.cs">
+      <DependentUpon>FChat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FPiaget.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FPiaget.Designer.cs">
+      <DependentUpon>FPiaget.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FManip27Main.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FManip27Main.designer.cs">
+      <DependentUpon>FManip27Main.cs</DependentUpon>
+    </Compile>
+    <Compile Include="manip27.cs" />
+    <Compile Include="Modbus.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="LargeControl.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LargeControl.Designer.cs">
+      <DependentUpon>LargeControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Test2016.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Test2016.Designer.cs">
+      <DependentUpon>Test2016.cs</DependentUpon>
+    </Compile>
+    <Compile Include="uPanneauAux.cs" />
+    <Compile Include="uTasks.cs" />
+    <Compile Include="uThreads.cs" />
+    <EmbeddedResource Include="FApiBC9020.resx">
+      <DependentUpon>FApiBC9020.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FChat.resx">
+      <DependentUpon>FChat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FPiaget.resx">
+      <DependentUpon>FPiaget.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FManip27Main.resx">
+      <DependentUpon>FManip27Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LargeControl.resx">
+      <DependentUpon>LargeControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Test2016.resx">
+      <DependentUpon>Test2016.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Piaget-CSharp_TemporaryKey.pfx" />
+    <None Include="Properties\app.manifest" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Task01.cs" />
+    <Compile Include="Task02.cs" />
+    <Compile Include="Task03.cs" />
+    <Compile Include="Task04.cs" />
+    <Compile Include="Task05.cs" />
+    <Compile Include="Task06.cs" />
+    <Compile Include="Task07.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Task08.cs" />
+    <Compile Include="Task09.cs" />
+    <Compile Include="Task10.cs" />
+    <Compile Include="Task11.cs" />
+    <Compile Include="Task12.cs" />
+    <Compile Include="Task13.cs" />
+    <Compile Include="Task14.cs" />
+    <Compile Include="Task15.cs" />
+    <Compile Include="Task16.cs" />
+    <Compile Include="Task17.cs" />
+    <Compile Include="Task18.cs" />
+    <Compile Include="Task19.cs" />
+    <Compile Include="Task20.cs" />
+    <Compile Include="Task21.cs" />
+    <Compile Include="uCalTrns.cs" />
+    <Compile Include="uGalil.cs" />
+    <Compile Include="uMouv.cs" />
+    <Compile Include="uMTasks.cs" />
+    <Compile Include="uPanel.cs" />
+    <Compile Include="uParam.cs" />
+    <Compile Include="uPiaget.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\CamImageSim.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\CamImageSim2.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\CamImageSim3.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\CamImageSim4.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\CamImageSim5.bmp" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
