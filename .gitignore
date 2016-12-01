@@ -3,6 +3,8 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+Piaget-CSharp/cfg/cfg.txt
+
 # User-specific files
 *.suo
 *.user

@@ -2153,11 +2153,9 @@ void __fastcall TForm1::BouclePrincipale(TObject *Sender, bool &Done)
             }
 
         }
-       
-
 
         Galil.Galil g = new Galil.Galil();
-         
+
 
 
         private void textBox2_KeyPress(object sender, KeyPressEventArgs e)

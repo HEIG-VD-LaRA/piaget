@@ -42,8 +42,6 @@
             this.BtnConnect = new System.Windows.Forms.Button();
             this.LtxtLocalIP = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.shapeContainer1 = new Microsoft.VisualBasic.PowerPacks.ShapeContainer();
-            this.lineShape1 = new Microsoft.VisualBasic.PowerPacks.LineShape();
             this.label5 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -184,26 +182,6 @@
             this.label1.TabIndex = 125;
             this.label1.Text = "IP:";
             // 
-            // shapeContainer1
-            // 
-            this.shapeContainer1.Location = new System.Drawing.Point(0, 0);
-            this.shapeContainer1.Margin = new System.Windows.Forms.Padding(0);
-            this.shapeContainer1.Name = "shapeContainer1";
-            this.shapeContainer1.Shapes.AddRange(new Microsoft.VisualBasic.PowerPacks.Shape[] {
-            this.lineShape1});
-            this.shapeContainer1.Size = new System.Drawing.Size(417, 368);
-            this.shapeContainer1.TabIndex = 130;
-            this.shapeContainer1.TabStop = false;
-            // 
-            // lineShape1
-            // 
-            this.lineShape1.BorderColor = System.Drawing.SystemColors.ControlLight;
-            this.lineShape1.Name = "lineShape1";
-            this.lineShape1.X1 = 9;
-            this.lineShape1.X2 = 405;
-            this.lineShape1.Y1 = 35;
-            this.lineShape1.Y2 = 35;
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -263,7 +241,7 @@
             this.Controls.Add(this.txtMessage);
             this.Controls.Add(this.ListMessages);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.shapeContainer1);
+            //this.Controls.Add(this.shapeContainer1);
             this.Name = "FChat";
             this.Text = "Chat Application";
             this.Load += new System.EventHandler(this.FChat_Load);
@@ -289,8 +267,6 @@
         private System.Windows.Forms.Button BtnConnect;
         private System.Windows.Forms.Label LtxtLocalIP;
         private System.Windows.Forms.Label label1;
-        private Microsoft.VisualBasic.PowerPacks.ShapeContainer shapeContainer1;
-        private Microsoft.VisualBasic.PowerPacks.LineShape lineShape1;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
