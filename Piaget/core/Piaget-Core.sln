@@ -1,0 +1,15 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Piaget-Core", "Piaget-Core\Piaget-Core.shproj", "{F5F34B0D-F7EA-4EBD-AA0F-11D358E752CA}"
+EndProject
+Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Piaget-Core\Piaget-Core.projitems*{f5f34b0d-f7ea-4ebd-aa0f-11d358e752ca}*SharedItemsImports = 13
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

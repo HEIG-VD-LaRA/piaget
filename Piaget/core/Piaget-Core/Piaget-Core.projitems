@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>f5f34b0d-f7ea-4ebd-aa0f-11d358e752ca</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Piaget_Core</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Clock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Config.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Lib\DoubleLinkedList.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Lib\DoubleLinkedListSorted.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Lib\DoubleLinkedNode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PiagetNG.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)System\HibernatedTaskPool.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)System\PeriodList.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)System\Task.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)System\TaskManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)System\TaskPool.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)System\WithTask.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UserConfig.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WithLoopTask.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WithRegularTask.cs" />
+  </ItemGroup>
+</Project>

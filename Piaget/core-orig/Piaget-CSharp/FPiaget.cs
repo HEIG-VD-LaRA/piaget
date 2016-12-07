@@ -2154,7 +2154,7 @@ void __fastcall TForm1::BouclePrincipale(TObject *Sender, bool &Done)
 
         }
 
-        Galil.Galil g = new Galil.Galil();
+        Galil.Galil g; // = new Galil.Galil(); HACK !!
 
 
 
