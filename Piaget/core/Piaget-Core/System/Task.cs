@@ -39,9 +39,11 @@ namespace Piaget_Core {
             this.period = period;
             this.clock = clock;
             this.task_manager = task_manager;
+        }
+        
+        public void ResetWakeupTime() {
             this.wakeup_time = clock.ElapsedTime;
         }
-
 
         public string Name {
             get {

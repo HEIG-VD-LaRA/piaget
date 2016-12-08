@@ -45,7 +45,7 @@ namespace TestApp {
 
         private MyLoopTask my_loop_task;
 
-        public override void Reset() {
+        protected override void Reset() {
             this.Task.SetState(Init);
         }
 

@@ -22,7 +22,7 @@ namespace Piaget_Core.System {
         private void InitTask(string name, WithTask with_task, ulong period) {
             Task task = (Task)with_task.Task;
             task.Init(name, period, this.clock, this);
-            with_task.Reset();
+            with_task.__ResetForTaskManager();
         }
 
         private void MoveToChildTask(Task new_task, Task parent) {
