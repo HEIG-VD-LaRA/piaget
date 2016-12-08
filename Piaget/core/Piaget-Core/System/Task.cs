@@ -39,6 +39,7 @@ namespace Piaget_Core {
             this.period = period;
             this.clock = clock;
             this.task_manager = task_manager;
+            this.wakeup_time = clock.ElapsedTime;
         }
 
 
@@ -85,6 +86,7 @@ namespace Piaget_Core {
         }
 
         public void SetRecovered() {
+            this.wakeup_time = this.clock.ElapsedTime;
             task_manager.Recover(this);
         }
 
