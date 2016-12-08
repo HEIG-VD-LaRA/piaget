@@ -46,7 +46,7 @@ namespace Piaget_Core.System {
         }
 
         public void Terminate(Task task) {
-            task.Terminate();
+            task.SetTerminated();
             RemoveFromPool(task);
         }
 
@@ -70,7 +70,7 @@ namespace Piaget_Core.System {
             TaskPoolNode first = this.task_pool.Current;
             TaskPoolNode current = first;
             do {
-                current.task.Terminate();
+                current.task.SetTerminated();
                 current = current.next;
             } while (current != first);
             return first;

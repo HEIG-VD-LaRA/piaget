@@ -17,17 +17,17 @@ namespace TestApp {
 
         protected override void Main_Loop() {
             if (i == 2) {
-                this.Task.Terminate();
+                this.Task.SetTerminated();
                 return;
             }
             ret += a * b;
-            this.Task.SetNextState(Second_Loop);
+            this.Task.SetState(Second_Loop);
         }
 
         private void Second_Loop() {
             if (j == 3) {
                 j = 0;
-                this.Task.SetNextState(End_Main_Loop);
+                this.Task.SetState(End_Main_Loop);
                 return;
             }
             a += j;
@@ -37,7 +37,7 @@ namespace TestApp {
         private void End_Main_Loop() {
             ret -= a * b;
             i++;
-            this.Task.SetNextState(Main_Loop);
+            this.Task.SetState(Main_Loop);
         }
     }
 
@@ -46,11 +46,11 @@ namespace TestApp {
         private MyLoopTask my_loop_task;
 
         public override void Reset() {
-            this.Task.SetNextState(Init);
+            this.Task.SetState(Init);
         }
 
         private void Init() {
-            this.Task.SetNextState(Start);
+            this.Task.SetState(Start);
         }
 
         private void Start() {
@@ -61,11 +61,11 @@ namespace TestApp {
                 b = 7
             };
             this.Task.AddLoopTask("For loops", my_loop_task, 10 * Clock.us);
-            this.Task.SetNextState(Stop);
+            this.Task.SetState(Stop);
         }
 
         private void Stop() {
-            this.Task.SetNextState(Init);
+            this.Task.SetState(Init);
         }
     }
 }

@@ -12,14 +12,14 @@ namespace Piaget_Core {
 
     interface ITask {
         string Name { get; }
-        void SetNextState(Action next_state_procedure);
-        void ExtraSleep(ulong extra_time);
+        void SetState(Action next_state_procedure);
+        void SetSleep(ulong extra_time);
         void AddParallelTask(string name, WithRegularTask task, ulong period);
         void AddSerialTask(string name, WithRegularTask task, ulong period);
         void AddLoopTask(string name, WithLoopTask task, ulong period);
-        void Hibernate();
-        void Recover();
-        void Terminate();
+        void SetHibernated();
+        void SetRecovered();
+        void SetTerminated();
     }
 
     class Task : DoubleLinkedNode<Task>, ITask {
@@ -48,7 +48,7 @@ namespace Piaget_Core {
             }
         }
 
-        public void SetNextState(Action next_state_procedure) {
+        public void SetState(Action next_state_procedure) {
             this.current_procedure = next_state_procedure;
         }
 
@@ -57,8 +57,8 @@ namespace Piaget_Core {
             this.wakeup_time += period;
         }
 
-        public void ExtraSleep(ulong extra_time) {
-            this.wakeup_time += extra_time;
+        public void SetSleep(ulong time) {
+            this.wakeup_time += time - period;
         }
 
         public void Sleep() {
@@ -80,15 +80,15 @@ namespace Piaget_Core {
             this.task_manager.AddSerialTask(name, task, period, this);
         }
 
-        public void Hibernate() {
+        public void SetHibernated() {
             task_manager.Hibernate(this);
         }
 
-        public void Recover() {
+        public void SetRecovered() {
             task_manager.Recover(this);
         }
 
-        public void Terminate() {
+        public void SetTerminated() {
             task_manager.RemoveFromPool(this);
         }
     }
