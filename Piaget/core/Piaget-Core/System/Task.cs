@@ -65,9 +65,9 @@ namespace Piaget_Core {
         }
 
         public void Sleep() {
-            long delta_t = (long)(this.wakeup_time - clock.ElapsedTime);
-            if (delta_t > SystemConfig.SoftwareTimeIncrement) {
-                Thread.Sleep(Clock.ToSoftwareTime(delta_t));
+            long time_to_sleep = (long)(this.wakeup_time - clock.ElapsedTime);
+            if (time_to_sleep > SystemConfig.SoftwareTimeIncrement) {
+                Thread.Sleep(Clock.ToSoftwareTime(time_to_sleep));
             }
         }
 

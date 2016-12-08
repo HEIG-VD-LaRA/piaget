@@ -10,11 +10,7 @@ namespace Piaget_Core.System {
 
     class PeriodList : DoubleLinkedListSorted<PeriodNode> {
 
-        static private ulong get_period (PeriodNode period_node) {
-            return period_node.period;
-        }
-
-        public PeriodList() : base(get_period) {}
+        public PeriodList() : base(delegate (PeriodNode node) { return node.period; }) {}
 
         public void Add(ulong period) {
             this.Add(new PeriodNode { period = period });

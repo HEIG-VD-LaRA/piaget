@@ -43,11 +43,11 @@ namespace Piaget_Core.Lib {
         }
 
         public void Remove(T_Node node) {
-            Remove<T_Node>(node, (current) => (current != node));
+            Remove<T_Node>(node, delegate (T_Node current) { return current != node; });
         }
 
         public void Remove(ulong val) {
-            Remove<ulong>(val, (current) => (get_val(current) != val));
+            Remove<ulong>(val, delegate (T_Node current) { return get_val(current) != val; });
         }
 
         public void Remove<T_Obj>(T_Obj obj, Func<T_Node,bool> false_condition) {
