@@ -48,17 +48,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Frm_TestApp.cs">
+    <Compile Include="frmTestOneTask.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Frm_TestApp.Designer.cs">
-      <DependentUpon>Frm_TestApp.cs</DependentUpon>
+    <Compile Include="frmTestOneTask.Designer.cs">
+      <DependentUpon>frmTestOneTask.cs</DependentUpon>
     </Compile>
-    <Compile Include="FSM.cs" />
+    <Compile Include="TestOneTask.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Frm_TestApp.resx">
-      <DependentUpon>Frm_TestApp.cs</DependentUpon>
+    <EmbeddedResource Include="frmTestOneTask.resx">
+      <DependentUpon>frmTestOneTask.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -82,7 +82,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <Import Project="..\..\..\Piaget\core\Piaget-Core\Piaget-Core.projitems" Label="Shared" />
+  <Import Project="..\..\..\Piaget-Core\Piaget-Core.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

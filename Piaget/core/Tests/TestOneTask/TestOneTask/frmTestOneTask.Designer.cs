@@ -1,5 +1,5 @@
-﻿namespace TestApp {
-    partial class Frm_TestApp {
+﻿namespace TestOneApp {
+    partial class frmTestOneTask {
         /// <summary>
         /// Required designer variable.
         /// </summary>

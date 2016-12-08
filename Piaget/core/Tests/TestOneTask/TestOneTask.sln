@@ -1,16 +1,15 @@
-﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApp", "TestApp\TestApp.csproj", "{6A7DEFE5-BD92-4C66-83A1-DD65696537AC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestOneTask", "TestOneTask\TestOneTask.csproj", "{6A7DEFE5-BD92-4C66-83A1-DD65696537AC}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Piaget-Core", "..\..\Piaget\core\Piaget-Core\Piaget-Core.shproj", "{F5F34B0D-F7EA-4EBD-AA0F-11D358E752CA}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Piaget-Core", "..\..\Piaget-Core\Piaget-Core.shproj", "{F5F34B0D-F7EA-4EBD-AA0F-11D358E752CA}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		..\..\Piaget\core\Piaget-Core\Piaget-Core.projitems*{6a7defe5-bd92-4c66-83a1-dd65696537ac}*SharedItemsImports = 4
-		..\..\Piaget\core\Piaget-Core\Piaget-Core.projitems*{f5f34b0d-f7ea-4ebd-aa0f-11d358e752ca}*SharedItemsImports = 13
+		..\..\Piaget-Core\Piaget-Core.projitems*{6a7defe5-bd92-4c66-83a1-dd65696537ac}*SharedItemsImports = 4
+		..\..\Piaget-Core\Piaget-Core.projitems*{f5f34b0d-f7ea-4ebd-aa0f-11d358e752ca}*SharedItemsImports = 13
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

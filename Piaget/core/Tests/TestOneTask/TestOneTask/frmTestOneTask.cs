@@ -2,17 +2,17 @@
 using System.Windows.Forms;
 using Piaget_Core;
 
-namespace TestApp {
-    public partial class Frm_TestApp : Form {
+namespace TestOneApp {
+    public partial class frmTestOneTask : Form {
 
-        public Frm_TestApp() {
+        public frmTestOneTask() {
             InitializeComponent();
         }
 
         private void btnGo_Click(object sender, EventArgs e) {
 
             PiagetNG piaget = new PiagetNG();
-            piaget.AddParallelTask("The FSM", new MyAppTask(), 1 * Clock.ms);
+            piaget.AddParallelTask("The FSM", new TestOneTask(), 1 * Clock.ms);
             piaget.Start();
         }
     }
