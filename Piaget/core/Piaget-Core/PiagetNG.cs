@@ -7,15 +7,17 @@ namespace Piaget_Core {
         public Clock TheClock {
             get { return this.clock; }
         }
+
         public PiagetNG () {
             task_manager = new TaskManager(clock);
-            clock = new Clock();
         }
-        public void AddParallelTask(string name, WithRegularTask task, ulong period) {
+
+        public void AddParallelTask(string name, WithRegularTask task, long period) {
             task_manager.AddParallelTask(name, task, period);
         }
 
         public void Start() {
+            this.clock = new Clock();
             task_manager.Start();
         }
 

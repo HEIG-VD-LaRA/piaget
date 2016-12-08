@@ -1,24 +1,22 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Threading;
 using Piaget_Core.System;
 
 namespace Piaget_Core {
     class Clock {
+        
+        public const long base_unit_100_ns = 1;
+        public const long us = 10 * base_unit_100_ns;
+        public const long ms = 1000 * us;
+        public const long sec = 1000 * ms;
 
-        public const ulong ps = 1;
-        public const ulong ns = 1000 * ps;
-        public const ulong us = 1000 * ns;
-        public const ulong ms = 1000 * us;
-        public const ulong sec = 1000 * ms;
-
-        private ulong elapsed_time = 0;
-        private ulong T_tic;
+        private long elapsed_time = 0;
+        private long T_tic_minimal;
+        private long T_tic;
         private int time_to_sleep;
 
-        private PeriodList period_list = new PeriodList();
-
         private Thread thread;
-        private Stopwatch stopWatch = new Stopwatch();
 
         static public int ToSoftwareTime(long piaget_time) {
             return (int)(piaget_time / SystemConfig.SoftwareTimeIncrement);
@@ -29,7 +27,7 @@ namespace Piaget_Core {
             this.thread.Start();
         }
 
-        public ulong ElapsedTime {
+        public long ElapsedTime {
             get {
                 return this.elapsed_time;
             }
@@ -39,33 +37,26 @@ namespace Piaget_Core {
             this.elapsed_time += T_tic;
         }
 
-        public void AddPeriodToList(ulong period) {
-            period_list.Add(period);
-            Reset();
-        }
-
-        public void RemovePeriodFromList(ulong period) {
-            period_list.Remove(period);
-            Reset();
-        }
-
-        private void Reset() {
-            this.T_tic = period_list.Min();
-            this.time_to_sleep = (int)this.T_tic * Config.Clock_Factor;
+        public void SetMinimalTaskPeriod(long minimal_task_period) {
+            this.T_tic_minimal = minimal_task_period;
+            this.T_tic = minimal_task_period;
+            this.time_to_sleep = ToSoftwareTime(Math.Max(UserConfig.Clock_MinSleep, this.T_tic * Config.Clock_Factor));
         }
 
         private void TticCalculation() {
-            ulong t0, tf; // Unit : ps
-            
+            long t0, tf; // Unit : us
+            long tsys0, tsysf; // Unit : 100 ns
+
             while (true) {
                 t0 = this.elapsed_time;
-                stopWatch.Restart();
+                tsys0 = DateTime.Now.Ticks;
                 Thread.Sleep(this.time_to_sleep);
                 tf = this.elapsed_time;
-                stopWatch.Stop();
-                this.T_tic = (ulong)((double)this.T_tic * stopWatch.Elapsed.TotalMilliseconds * (double)ms / (double)(tf - t0));
-                if (this.T_tic == 0) { // Should only happen when or when incorrect parameter
-                    Reset();
+                tsysf = DateTime.Now.Ticks;
+                
+                T_tic = (this.T_tic * (tsysf - tsys0)) / (tf - t0);
+                if (this.T_tic == 0) { // Should happen only when ...
+                    this.T_tic = this.T_tic_minimal;
                 }
             }
         }

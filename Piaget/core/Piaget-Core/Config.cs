@@ -8,9 +8,8 @@ namespace Piaget_Core {
     }
 
     class DefaultConfig {
-        public const ulong Clock_MinSleep = 100 * Clock.ms;
-        public const int Clock_Factor = 10;
-        public const int Clock_PollUntil_Factor = 10;
+        public const long Clock_MinSleep = 100 * Clock.ms;
+        public const int Clock_Factor = 16;
     }
     
     class Config : UserConfig {

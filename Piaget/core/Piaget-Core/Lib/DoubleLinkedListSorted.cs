@@ -4,7 +4,7 @@ using System;
 namespace Piaget_Core.Lib {
 
     class DoubleLinkedListSorted<T_Node> where T_Node : DoubleLinkedNode<T_Node> {
-        private Func<T_Node,ulong> get_val;
+        private Func<T_Node,long> get_val;
         private T_Node first = null;
 
         protected T_Node First {
@@ -12,11 +12,11 @@ namespace Piaget_Core.Lib {
             set { this.first = value; }
         }
 
-        public DoubleLinkedListSorted(Func<T_Node,ulong> get_val) {
+        public DoubleLinkedListSorted(Func<T_Node,long> get_val) {
             this.get_val = get_val;
         }
 
-        public ulong Min() {
+        public long Min() {
             return get_val(this.first);
         }
 
@@ -46,8 +46,8 @@ namespace Piaget_Core.Lib {
             Remove<T_Node>(node, delegate (T_Node current) { return current != node; });
         }
 
-        public void Remove(ulong val) {
-            Remove<ulong>(val, delegate (T_Node current) { return get_val(current) != val; });
+        public void Remove(long val) {
+            Remove<long>(val, delegate (T_Node current) { return get_val(current) != val; });
         }
 
         public void Remove<T_Obj>(T_Obj obj, Func<T_Node,bool> false_condition) {
@@ -109,7 +109,7 @@ namespace Piaget_Core.Lib {
         //    current.previous.next = current.next;
         //}
 
-        //public void Remove(ulong val) {
+        //public void Remove(long val) {
         //    Node current = this.first;
         //    while (current.obj.val != val) {
         //        current = current.next;

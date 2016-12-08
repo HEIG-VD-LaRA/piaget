@@ -7,10 +7,10 @@ namespace Piaget_Core {
     //interface IRegularTask {
     //    string Name { get; }
     //    void SetNextState(Action next_state_procedure);
-    //    void ExtraSleep(ulong extra_time);
-    //    void AddParallelTask(string name, RegularTask task, ulong period);
-    //    void AddSerialTask(string name, RegularTask task, ulong period);
-    //    void AddLoopTask(string name, LoopTask task, ulong period);
+    //    void ExtraSleep(long extra_time);
+    //    void AddParallelTask(string name, RegularTask task, long period);
+    //    void AddSerialTask(string name, RegularTask task, long period);
+    //    void AddLoopTask(string name, LoopTask task, long period);
     //    void Terminate();
     //}
 }

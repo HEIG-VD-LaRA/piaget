@@ -4,17 +4,18 @@ namespace Piaget_Core.System {
         private TaskPool task_pool = new TaskPool();
         private HibernatedTaskPool hibernated_task_pool = new HibernatedTaskPool();
         private Clock clock;
+        private PeriodList period_list = new PeriodList();
 
         public TaskManager(Clock clock) {
             this.clock = clock;
         }
 
-        public void AddParallelTask(string name, WithRegularTask with_regular_task, ulong period) {
+        public void AddParallelTask(string name, WithRegularTask with_regular_task, long period) {
             InitTask(name, with_regular_task, period);
             this.task_pool.Add((Task)with_regular_task.Task);
         }
 
-        public void AddSerialTask(string name, WithTask with_task, ulong period, Task parent) {
+        public void AddSerialTask(string name, WithTask with_task, long period, Task parent) {
             InitTask(name, with_task, period);
             // If the user use the same task state to add several serial tasks,
             // only the first one added will be the top one
@@ -23,7 +24,7 @@ namespace Piaget_Core.System {
             }
         }
 
-        private void InitTask(string name, WithTask with_task, ulong period) {
+        private void InitTask(string name, WithTask with_task, long period) {
             Task task = (Task)with_task.Task;
             task.Init(name, period, this.clock, this);
             with_task.__ResetForTaskManager();

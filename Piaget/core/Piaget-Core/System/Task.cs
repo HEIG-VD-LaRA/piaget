@@ -13,10 +13,10 @@ namespace Piaget_Core {
     interface ITask {
         string Name { get; }
         void SetState(Action next_state_procedure);
-        void SetSleep(ulong extra_time);
-        void AddParallelTask(string name, WithRegularTask task, ulong period);
-        void AddSerialTask(string name, WithRegularTask task, ulong period);
-        void AddLoopTask(string name, WithLoopTask task, ulong period);
+        void SetSleep(long extra_time);
+        void AddParallelTask(string name, WithRegularTask task, long period);
+        void AddSerialTask(string name, WithRegularTask task, long period);
+        void AddLoopTask(string name, WithLoopTask task, long period);
         void SetHibernated();
         void SetRecovered();
         void SetTerminated();
@@ -24,17 +24,17 @@ namespace Piaget_Core {
 
     class Task : DoubleLinkedNode<Task>, ITask {
         private string name;
-        private ulong period;
+        private long period;
         private Clock clock;
         private TaskManager task_manager;
         protected Action current_procedure;
-        private ulong wakeup_time;
+        private long wakeup_time;
 
-        public ulong WakeupTime {
+        public long WakeupTime {
             get { return this.wakeup_time; }
         }
 
-        public void Init(string name, ulong period, Clock clock, TaskManager task_manager) {
+        public void Init(string name, long period, Clock clock, TaskManager task_manager) {
             this.name = name;
             this.period = period;
             this.clock = clock;
@@ -60,7 +60,7 @@ namespace Piaget_Core {
             this.wakeup_time += period;
         }
 
-        public void SetSleep(ulong time) {
+        public void SetSleep(long time) {
             this.wakeup_time += time - period;
         }
 
@@ -71,15 +71,15 @@ namespace Piaget_Core {
             }
         }
 
-        public void AddParallelTask (string name, WithRegularTask task, ulong period) {
+        public void AddParallelTask (string name, WithRegularTask task, long period) {
             this.task_manager.AddParallelTask(name, task, period);
         }
 
-        public void AddSerialTask(string name, WithRegularTask task, ulong period) {
+        public void AddSerialTask(string name, WithRegularTask task, long period) {
             this.task_manager.AddSerialTask(name, task, period, this);
         }
 
-        public void AddLoopTask(string name, WithLoopTask task, ulong period) {
+        public void AddLoopTask(string name, WithLoopTask task, long period) {
             this.task_manager.AddSerialTask(name, task, period, this);
         }
 
