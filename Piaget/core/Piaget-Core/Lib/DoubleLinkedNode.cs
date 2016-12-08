@@ -10,10 +10,21 @@ namespace Piaget_Core.Lib {
             this.previous = (T_Node)this;
             this.next = (T_Node)this;
         }
+        public bool IsAlone() {
+            if (this.next == this) {
+                return true;
+            }
+            return false;
+        }
+
         public void MoveBefore(T_Node before_that) {
+            if (this.IsAlone()) {
+                return;
+            }
             this.Remove();
             this.InsertBefore(before_that);
         }
+
         public void InsertBefore(T_Node before_that) {
             this.previous = before_that.previous;
             this.next = before_that;
@@ -23,15 +34,17 @@ namespace Piaget_Core.Lib {
         public void InsertAfter(T_Node after_that) {
             this.InsertBefore(after_that.next);
         }
-
-        public void Remove() {
-            if (this == this.next) {
-                // ! Must destroy this if it is the only element !
-                throw new NotImplementedException();
-                //return;
-            }
+        private void Remove() {
             this.previous.next = this.next;
             this.next.previous = this.previous;
+        }
+
+        static public void Remove(ref T_Node to_be_removed) {
+            if (to_be_removed.IsAlone()) { // Is it the only element from the list ?
+                to_be_removed = null;
+                return;
+            }
+            to_be_removed.Remove();
         }
     }
 }
