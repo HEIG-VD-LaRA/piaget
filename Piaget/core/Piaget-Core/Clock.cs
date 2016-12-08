@@ -12,20 +12,28 @@ namespace Piaget_Core {
         public const long sec = 1000 * ms;
 
         private long elapsed_time = 0;
-        private long T_tic_minimal;
         private long T_tic;
+        // Should be modified by TaskPool alone in order to avoid multithreading issues
+        private long T_tic_minimal;
         private int time_to_sleep;
-
+        //
         private Thread thread;
 
         static public int ToSoftwareTime(long piaget_time) {
             return (int)(piaget_time / SystemConfig.SoftwareTimeIncrement);
         }
 
-        public Clock() {
+        public void Start() {
             this.thread = new Thread(TticCalculation);
             this.thread.Start();
         }
+        
+        // Should be modified by TaskPool alone in order to avoid multithreading issues
+        public void SetMinimalPeriod(long minimal_task_period) {
+            this.T_tic_minimal = minimal_task_period;
+            this.time_to_sleep = ToSoftwareTime(Math.Max(UserConfig.Clock_MinSleep, this.T_tic_minimal * Config.Clock_Factor));
+        }
+        //
 
         public long ElapsedTime {
             get {
@@ -35,12 +43,6 @@ namespace Piaget_Core {
 
         public void IncElapsedTime() {
             this.elapsed_time += T_tic;
-        }
-
-        public void SetMinimalTaskPeriod(long minimal_task_period) {
-            this.T_tic_minimal = minimal_task_period;
-            this.T_tic = minimal_task_period;
-            this.time_to_sleep = ToSoftwareTime(Math.Max(UserConfig.Clock_MinSleep, this.T_tic * Config.Clock_Factor));
         }
 
         private void TticCalculation() {

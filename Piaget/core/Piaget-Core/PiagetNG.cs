@@ -3,7 +3,7 @@
 namespace Piaget_Core {
     class PiagetNG {
         private TaskManager task_manager;
-        private Clock clock;
+        private Clock clock = new Clock();
         public Clock TheClock {
             get { return this.clock; }
         }
@@ -17,7 +17,6 @@ namespace Piaget_Core {
         }
 
         public void Start() {
-            this.clock = new Clock();
             task_manager.Start();
         }
 

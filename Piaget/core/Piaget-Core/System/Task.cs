@@ -30,15 +30,19 @@ namespace Piaget_Core {
         protected Action current_procedure;
         private long wakeup_time;
 
+        public long Period {
+            get { return this.period; }
+        }
         public long WakeupTime {
             get { return this.wakeup_time; }
         }
 
-        public void Init(string name, long period, Clock clock, TaskManager task_manager) {
+        public void Init(string name, long period, TaskManager task_manager, Clock clock) {
             this.name = name;
             this.period = period;
             this.clock = clock;
             this.task_manager = task_manager;
+            ResetWakeupTime();
         }
         
         public void ResetWakeupTime() {

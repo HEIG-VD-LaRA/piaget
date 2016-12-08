@@ -15,5 +15,10 @@ namespace Piaget_Core.System {
         public void Add(long period) {
             this.Add(new PeriodNode { period = period });
         }
+
+        public void ReplaceFirstBySecond(long old_period, long new_period) {
+            this.Remove(old_period);
+            this.Add(new_period);
+        }
     }
 }

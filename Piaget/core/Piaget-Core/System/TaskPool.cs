@@ -9,18 +9,33 @@ namespace Piaget_Core.System {
 
     class TaskPool : DoubleLinkedListSorted<TaskPoolNode> {
         static private Func<TaskPoolNode,long> get_wakeup_time = delegate (TaskPoolNode node) { return node.task.WakeupTime; };
+        private PeriodList period_list = new PeriodList();
+        private Clock clock;
 
-        public TaskPool() : base(get_wakeup_time) {}
+        public TaskPool(Clock clock) : base(get_wakeup_time) {
+            this.clock = clock;
+        }
 
         public TaskPoolNode Current {
             get { return this.First; }
-            set { this.First = value; }
+            set { period_list.Remove(this.First.task.Period);
+                  period_list.Add(value.task.Period);
+                  this.clock.SetMinimalPeriod(period_list.Min());
+                  this.First = value; }
         }
 
         public void Add(Task task) {
             TaskPoolNode task_pool_node = new TaskPoolNode();
+            period_list.Add(task.Period);
+            this.clock.SetMinimalPeriod(period_list.Min());
             task_pool_node.task = task;
             Add(task_pool_node);
+        }
+
+        public new void Remove(TaskPoolNode task_pool_node) {
+            period_list.Remove(task_pool_node.task.Period);
+            this.clock.SetMinimalPeriod(period_list.Min());
+            base.Remove(task_pool_node);
         }
 
         public void SerialRemove(Task task) {
@@ -29,6 +44,8 @@ namespace Piaget_Core.System {
             Task new_executing_task = task.previous;
             Task bottom_task = old_executing_task.next;
 
+            period_list.Remove(task.Period);
+            this.clock.SetMinimalPeriod(period_list.Min());
             new_executing_task.next = bottom_task;
             bottom_task.previous = new_executing_task;
             executing_task_pool_node.task = new_executing_task;
