@@ -16,7 +16,11 @@ namespace Piaget_Core.System {
 
         public void AddSerialTask(string name, WithTask with_task, ulong period, Task parent) {
             InitTask(name, with_task, period);
-            MoveToChildTask((Task)with_task.Task, parent);
+            // If the user use the same task state to add several serial tasks,
+            // only the first one added will be the top one
+            if (parent == task_pool.Current.task) {
+                MoveToChildTask((Task)with_task.Task, parent);
+            }
         }
 
         private void InitTask(string name, WithTask with_task, ulong period) {
