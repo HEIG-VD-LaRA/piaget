@@ -35,6 +35,7 @@ namespace Piaget_Core.System {
             AddSystemTasks();
             // Start multitasking
             // (...)
+            this.clock.Start();
             while (true) {
                 this.task_pool.Current.task.Sleep();
                 this.task_pool.Current.task.Exec();

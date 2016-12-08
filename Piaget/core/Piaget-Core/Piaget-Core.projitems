@@ -16,12 +16,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)Lib\DoubleLinkedNode.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PiagetNG.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)System\HibernatedTaskPool.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)System\PeriodList.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)System\Task.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)System\TaskManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)System\TaskPool.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)System\WithTask.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)UserConfig.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)WithLoopTask.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)WithRegularTask.cs" />
   </ItemGroup>

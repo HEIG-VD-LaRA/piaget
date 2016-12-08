@@ -41,12 +41,11 @@ namespace TestClock {
             int real_time = (int)(DateTime.Now.Ticks / 10000 - this.real_time_offset);
             int abs_error = real_time - mesured_time;
             double rel_error = (double)abs_error / (double)real_time;
-            lblMesuredTime.Text = mesured_time.ToString();
-            lblRealTime.Text = real_time.ToString();
+
+            this.lblMesuredTime.Text = mesured_time.ToString();
+            this.lblRealTime.Text = real_time.ToString();
             this.lblAbsError.Text = abs_error.ToString();
             this.lblRelError.Text = rel_error.ToString();
-
-
         }
     }
 }

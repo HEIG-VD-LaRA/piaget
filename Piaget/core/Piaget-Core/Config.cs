@@ -8,16 +8,12 @@ namespace Piaget_Core {
     }
 
     class DefaultConfig {
-        public const long Clock_MinSleep = 100 * Clock.ms;
-        public const int Clock_Factor = 16;
+        public const int Clock_MillisecondSleep = 1;
+        public const int Clock_DeltaTicksToResume = 4;
     }
     
-    class Config : UserConfig {
-        public Config() {
-            //if (Task_ThresholdToSleep < SystemConfig.Task_MinThresholdToSleep) {
-            //    throw new Exception("Task_ThresholdToSleep should be at least equal to Task_MinThresholdToSleep defined in class SystemConfig");
-            //}
-            // Test des autres config !!!
-        }
+    class Config : DefaultConfig {
+        public new const int Clock_SleepInMilliseconds = 1;
+        public new const int Clock_DeltaTicksToResume = 1;
     }
 }
