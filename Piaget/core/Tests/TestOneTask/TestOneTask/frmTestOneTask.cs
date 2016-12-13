@@ -32,7 +32,7 @@ namespace TestOneApp {
         private void UpdateForm() {
             while (true) {
                 lblElapsedTime.Text = this.piaget.TheClock.ElapsedTime.ToString();
-                Thread.Sleep(400);
+                Thread.Sleep(100);
             }
         }
 

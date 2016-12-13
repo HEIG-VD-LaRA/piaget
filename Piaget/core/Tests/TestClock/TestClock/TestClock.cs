@@ -4,7 +4,8 @@ using System.Threading;
 
 namespace TestClock {
     class TestClock {
-        private const long TaskPeriod = 100 * Clock.ms;
+        private const long TaskPeriodReal = 100 * Clock.ms;
+        private readonly long TaskPeriod = Clock.ToPiagetTime(TaskPeriodReal);
         private Clock clock;
         private Thread thread_task_manager; //, thread_time_check;
         private Action<int> update_callback;
@@ -30,12 +31,12 @@ namespace TestClock {
         }
 
         public void SimulateTaskManager() {
-            int sleep_time = Clock.ToSoftwareTime(TaskPeriod);
+            int sleep_time = Clock.ToSleepTime(TaskPeriod);
             this.clock.Start();
             while (true) {
-                this.clock.IncElapsedTime();
+                this.clock.UpdateElapsedSWTicks();
                 Thread.Sleep(sleep_time);
-                this.update_callback(Clock.ToSoftwareTime(this.clock.ElapsedTime));
+                this.update_callback((int)(this.clock.ElapsedTime/(1 * Clock.ms)));
             }
         }
 

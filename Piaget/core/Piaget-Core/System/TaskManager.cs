@@ -39,7 +39,7 @@ namespace Piaget_Core.System {
             while (true) {
                 this.task_pool.Current.task.Sleep();
                 this.task_pool.Current.task.Exec();
-                this.clock.IncElapsedTime();
+                this.clock.UpdateElapsedSWTicks();
                 this.task_pool.MoveNext();
             }
         }

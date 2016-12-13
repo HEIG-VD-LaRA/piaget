@@ -24,29 +24,26 @@ namespace Piaget_Core {
 
     class Task : DoubleLinkedNode<Task>, ITask {
         private string name;
-        private long period;
+        private long sw_period;
         private Clock clock;
         private TaskManager task_manager;
         protected Action current_procedure;
         private long wakeup_time;
 
-        public long Period {
-            get { return this.period; }
-        }
         public long WakeupTime {
             get { return this.wakeup_time; }
         }
 
         public void Init(string name, long period, TaskManager task_manager, Clock clock) {
             this.name = name;
-            this.period = period;
+            this.sw_period = Clock.ToPiagetTime(period);
             this.clock = clock;
             this.task_manager = task_manager;
             ResetWakeupTime();
         }
         
         public void ResetWakeupTime() {
-            this.wakeup_time = clock.ElapsedTime;
+            this.wakeup_time = clock.ElapsedSWTime;
         }
 
         public string Name {
@@ -61,18 +58,17 @@ namespace Piaget_Core {
 
         public void Exec() {
             this.current_procedure();
-            this.wakeup_time += period;
+            this.wakeup_time += sw_period;
         }
 
         public void SetSleep(long time) {
-            this.wakeup_time += time - period;
+            this.wakeup_time += time - sw_period;
         }
 
         public void Sleep() {
-            long time_to_sleep = (long)(this.wakeup_time - clock.ElapsedTime);
-            if (time_to_sleep > SystemConfig.SoftwareTimeIncrement) {
-                this.clock.AddSleepToElapsedTime(time_to_sleep);
-                Thread.Sleep(Clock.ToSoftwareTime(time_to_sleep));
+            long time_to_sleep = (long)(this.wakeup_time - clock.ElapsedSWTime);
+            if (time_to_sleep > Config.SleepTimeIncrement) {
+                Thread.Sleep(Clock.ToSleepTime(time_to_sleep));
             }
         }
 
@@ -93,7 +89,7 @@ namespace Piaget_Core {
         }
 
         public void SetRecovered() {
-            this.wakeup_time = this.clock.ElapsedTime;
+            this.wakeup_time = this.clock.ElapsedSWTime;
             task_manager.Recover(this);
         }
 
