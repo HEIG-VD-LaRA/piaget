@@ -8,7 +8,7 @@ namespace Piaget_Core.System {
     }
 
     class TaskPool : DoubleLinkedListSorted<TaskPoolNode> {
-        static private Func<TaskPoolNode,long> get_wakeup_time = delegate (TaskPoolNode node) { return node.task.WakeupTime; };
+        static private Func<TaskPoolNode,long> get_wakeup_time = delegate (TaskPoolNode node) { return node.task.WakeupSWTime; };
         private Clock clock;
 
         public TaskPool(Clock clock) : base(get_wakeup_time) {

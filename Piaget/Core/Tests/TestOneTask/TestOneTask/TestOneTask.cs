@@ -1,5 +1,6 @@
-﻿using Piaget_Core;
-using Piaget_Core.System;
+﻿using System.Diagnostics;
+
+using Piaget_Core;
 
 namespace TestOneApp {
 

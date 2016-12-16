@@ -5,14 +5,17 @@ using Piaget_Core.System;
 
 namespace Piaget_Core {
     class Clock {
-        
+
         // With ps as base unit, the system can run during 100 days before overflow on elapsed_time
         public const long ps = 1;
-        public const long us = 1000 * ps;
+        public const long ns = 1000 * ps;
+        public const long us = 1000 * ns;
         public const long ms = 1000 * us;
         public const long sec = 1000 * ms;
 
-        private long elapsed_sw_ticks = 0;
+        static public readonly long Stopwatch_Period = sec / Stopwatch.Frequency;
+
+        private long elapsed_sw_time = 0;
         private Stopwatch stopwatch = new Stopwatch();
 
         static public int ToSleepTime(long piaget_time) {
@@ -24,12 +27,12 @@ namespace Piaget_Core {
         }
 
         static public long ToRealTime(long piaget_time) {
-            return (piaget_time * sec) / Stopwatch.Frequency;
+            return piaget_time * Stopwatch_Period;
         }
 
         public long ElapsedTime {
             get {
-                return ToRealTime(this.elapsed_sw_ticks);
+                return ToRealTime(this.elapsed_sw_time);
             }
         }
 
@@ -39,12 +42,12 @@ namespace Piaget_Core {
 
         public long ElapsedSWTime {
             get {
-                return this.elapsed_sw_ticks;
+                return this.elapsed_sw_time;
             }
         }
 
-        public void UpdateElapsedSWTicks() {
-            this.elapsed_sw_ticks = stopwatch.ElapsedTicks;
+        public void UpdateElapsedTime() {
+            this.elapsed_sw_time = stopwatch.ElapsedTicks;
         }
     }
 }

@@ -12,6 +12,7 @@ namespace Piaget_Core {
 
     interface ITask {
         string Name { get; }
+        long Period { get; } // in ps
         void SetState(Action next_state_procedure);
         void SetSleep(long extra_time);
         void AddParallelTask(string name, WithRegularTask task, long period);
@@ -28,14 +29,17 @@ namespace Piaget_Core {
         private Clock clock;
         private TaskManager task_manager;
         protected Action current_procedure;
-        private long wakeup_time;
+        private long wakeup_sw_time;
 
-        public long WakeupTime {
-            get { return this.wakeup_time; }
+        public long WakeupSWTime {
+            get { return this.wakeup_sw_time; }
         }
+
+        public long Period { get; private set; }
 
         public void Init(string name, long period, TaskManager task_manager, Clock clock) {
             this.name = name;
+            this.Period = period;
             this.sw_period = Clock.ToPiagetTime(period);
             this.clock = clock;
             this.task_manager = task_manager;
@@ -43,7 +47,7 @@ namespace Piaget_Core {
         }
         
         public void ResetWakeupTime() {
-            this.wakeup_time = clock.ElapsedSWTime;
+            this.wakeup_sw_time = clock.ElapsedSWTime;
         }
 
         public string Name {
@@ -58,15 +62,15 @@ namespace Piaget_Core {
 
         public void Exec() {
             this.current_procedure();
-            this.wakeup_time += sw_period;
+            this.wakeup_sw_time += sw_period;
         }
 
         public void SetSleep(long time) {
-            this.wakeup_time += time - sw_period;
+            this.wakeup_sw_time += time - sw_period;
         }
 
         public void Sleep() {
-            long time_to_sleep = (long)(this.wakeup_time - clock.ElapsedSWTime);
+            long time_to_sleep = (long)(this.wakeup_sw_time - clock.ElapsedSWTime);
             if (time_to_sleep > Config.SleepTimeIncrement) {
                 Thread.Sleep(Clock.ToSleepTime(time_to_sleep));
             }
@@ -89,7 +93,7 @@ namespace Piaget_Core {
         }
 
         public void SetRecovered() {
-            this.wakeup_time = this.clock.ElapsedSWTime;
+            this.wakeup_sw_time = this.clock.ElapsedSWTime;
             task_manager.Recover(this);
         }
 
