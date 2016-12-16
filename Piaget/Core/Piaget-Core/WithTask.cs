@@ -1,5 +1,6 @@
-﻿
-namespace Piaget_Core.System {
+﻿using Piaget_Core.System;
+
+namespace Piaget_Core {
     abstract class WithTask {
         private ITask i_task = new Task();
         public ITask Task {
@@ -7,8 +8,8 @@ namespace Piaget_Core.System {
         }
 
         abstract protected void Reset();
-        
-        public void __NewTask(string name, long period, TaskManager task_manager, Clock clock) {
+
+        public void __NewTask(string name, double period, TaskManager task_manager, Clock clock) {
             Task task = new Task();
             task.Init(name, period, task_manager, clock);
             task.SetState(Reset);

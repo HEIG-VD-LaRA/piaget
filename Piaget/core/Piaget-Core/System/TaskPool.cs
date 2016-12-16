@@ -5,14 +5,22 @@ namespace Piaget_Core.System {
 
     class TaskPoolNode : DoubleLinkedNode<TaskPoolNode> {
         public Task task;
+        public TaskPoolNode(Task task) {
+            this.task = task;
+        }
     }
 
     class TaskPool : DoubleLinkedListSorted<TaskPoolNode> {
         static private Func<TaskPoolNode,long> get_wakeup_time = delegate (TaskPoolNode node) { return node.task.WakeupSWTime; };
         private Clock clock;
+        private readonly Task null_task = new Task();
+        private readonly long null_task_period = (long)(100.0 * Clock.ms);
 
         public TaskPool(Clock clock) : base(get_wakeup_time) {
             this.clock = clock;
+            this.null_task.Init("Null task", null_task_period, null, clock);
+            this.null_task.SetState(() => { }); // void procedure to be executed
+            Add(new TaskPoolNode(this.null_task));
         }
 
         public TaskPoolNode Current {
@@ -21,24 +29,35 @@ namespace Piaget_Core.System {
         }
 
         public void Add(Task task) {
-            TaskPoolNode task_pool_node = new TaskPoolNode();
-            task_pool_node.task = task;
-            Add(task_pool_node);
+            if (Current.task == this.null_task) { // First task to be added ?
+                Current.task = task;
+            } else {
+                TaskPoolNode task_pool_node = new TaskPoolNode(task);
+                Add(task_pool_node);
+            }
         }
 
         public new void Remove(TaskPoolNode task_pool_node) {
-            base.Remove(task_pool_node);
+            if (task_pool_node == task_pool_node.next) { // Removing the last task in the pool ?
+                task_pool_node.task = null_task;
+            } else {
+                base.Remove(task_pool_node);
+            }
         }
 
-        public void SerialRemove(Task task) {
+        public void Remove(Task task) {
             TaskPoolNode executing_task_pool_node = Find(task);
-            Task old_executing_task = executing_task_pool_node.task;
-            Task new_executing_task = task.previous;
-            Task bottom_task = old_executing_task.next;
-            
-            new_executing_task.next = bottom_task;
-            bottom_task.previous = new_executing_task;
-            executing_task_pool_node.task = new_executing_task;
+            if (task == task.next) { // No other tasks in the same task pool node ?
+                Remove(executing_task_pool_node);
+            } else { // Remove the task from the current task pool node
+                Task old_executing_task = executing_task_pool_node.task;
+                Task new_executing_task = task.previous;
+                Task bottom_task = old_executing_task.next;
+
+                new_executing_task.next = bottom_task;
+                bottom_task.previous = new_executing_task;
+                executing_task_pool_node.task = new_executing_task;
+            }
         }
 
         public TaskPoolNode Find(Task node) {

@@ -4,8 +4,7 @@ using Piaget_Core.System;
 namespace Piaget_Core {
 
     class SystemConfig {
-        private const long SleepTimeIncrementReal = 1 * (long)Clock.ms;
-        static public readonly long SleepTimeIncrement = Clock.ToPiagetTime(SleepTimeIncrementReal);
+        static public readonly long SleepTimeIncrement = (long)(1.0 * Clock.ms);
     }
 
     class DefaultConfig : SystemConfig {

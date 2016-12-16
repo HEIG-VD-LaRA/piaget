@@ -1,25 +1,66 @@
-﻿using System.Diagnostics;
-
+﻿using Lib4Testing;
 using Piaget_Core;
+using System;
+using System.Threading;
 
 namespace TestOneApp {
 
-    class TestOneTask : WithRegularTask {
+    class TestOneTask : WithTask {
+
+        private TimeMeasurement time_measurement;
+        private Action<ErrorValue> update_measure_callback;
+        private int n_cycle;
+
+        public TestOneTask(Action<ErrorValue> update_measure_callback) {
+            this.update_measure_callback = update_measure_callback;
+        }
 
         protected override void Reset() {
-            this.Task.SetState(Init);
+            n_cycle = 0;
+            time_measurement = new TimeMeasurement(this.Task.Period);
+            this.Task.SetState(A);
         }
 
-        private void Init() {
-            this.Task.SetState(Start);
+        private void A() {
+            update_measure_callback(time_measurement.ErrTimeCheck(10));
+            this.Task.SetState(B);
         }
 
-        private void Start() {
-            this.Task.SetState(Stop);
+        private void B() {
+            this.Task.SetState(C);
         }
 
-        private void Stop() {
-            this.Task.SetState(Init);
+        private void C() {
+            this.Task.SetState(D);
+        }
+
+        private void D() {
+            this.Task.SetState(E);
+        }
+
+        private void E() {
+            this.Task.SetState(F);
+        }
+
+        private void F() {
+            this.Task.SetState(G);
+        }
+
+        private void G() {
+            this.Task.SetState(H);
+        }
+
+        private void H() {
+            this.Task.SetState(I);
+        }
+
+        private void I() {
+            this.Task.SetState(J);
+        }
+
+        private void J() {
+            n_cycle++;
+            this.Task.SetState(A);
         }
     }
 }

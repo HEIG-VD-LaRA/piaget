@@ -6,18 +6,13 @@ using Piaget_Core.System;
 
 namespace Piaget_Core {
 
-    //class TaskBaseNode : DoubleLinkedNode<TaskBaseNode> {
-    //    public TaskBase task;
-    //}
-
     interface ITask {
         string Name { get; }
-        long Period { get; } // in ps
+        double Period { get; }
         void SetState(Action next_state_procedure);
         void SetSleep(long extra_time);
-        void AddParallelTask(string name, WithRegularTask task, long period);
-        void AddSerialTask(string name, WithRegularTask task, long period);
-        void AddLoopTask(string name, WithLoopTask task, long period);
+        void AddParallelTask(string name, WithTask task, long period);
+        void AddSerialTask(string name, WithTask task, long period);
         void SetHibernated();
         void SetRecovered();
         void SetTerminated();
@@ -25,22 +20,25 @@ namespace Piaget_Core {
 
     class Task : DoubleLinkedNode<Task>, ITask {
         private string name;
-        private long sw_period;
-        private Clock clock;
+        protected Clock clock;
         private TaskManager task_manager;
-        protected Action current_procedure;
+        private Action current_procedure;
         private long wakeup_sw_time;
+
+        public long sw_period;
+        public double Period {
+            get {
+                return (double)this.sw_period / (double)Clock.sec;
+            }
+        }
 
         public long WakeupSWTime {
             get { return this.wakeup_sw_time; }
         }
 
-        public long Period { get; private set; }
-
-        public void Init(string name, long period, TaskManager task_manager, Clock clock) {
+        public void Init(string name, double sw_period, TaskManager task_manager, Clock clock) {
             this.name = name;
-            this.Period = period;
-            this.sw_period = Clock.ToPiagetTime(period);
+            this.sw_period = (long)sw_period;
             this.clock = clock;
             this.task_manager = task_manager;
             ResetWakeupTime();
@@ -76,15 +74,11 @@ namespace Piaget_Core {
             }
         }
 
-        public void AddParallelTask (string name, WithRegularTask task, long period) {
+        public void AddParallelTask (string name, WithTask task, long period) {
             this.task_manager.AddParallelTask(name, task, period);
         }
 
-        public void AddSerialTask(string name, WithRegularTask task, long period) {
-            this.task_manager.AddSerialTask(name, task, period, this);
-        }
-
-        public void AddLoopTask(string name, WithLoopTask task, long period) {
+        public void AddSerialTask(string name, WithTask task, long period) {
             this.task_manager.AddSerialTask(name, task, period, this);
         }
 
