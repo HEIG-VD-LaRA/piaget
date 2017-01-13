@@ -1,14 +1,15 @@
 ﻿using System.Windows.Forms;
 using System;
+using static System.Environment; // for NewLine
 
 using Piaget_Core;
 using Lib4Testing;
 
 namespace PerformanceTest {
     public partial class frmPerformanceTest : Form {
-        private const uint N_Cycles = 10000;
-        private const long T_Task_Resolution = 1;
-        private readonly string NewLine = Environment.NewLine;
+        // Strangely the lower is n_tasks, the higher must be N_cycles, otherwise there is a big error on task time calculation
+        private const uint N_Cycles_0 = 500000;
+        private uint N_cycles;
         private uint n_tasks;
         private uint n_done_tasks;
         private PiagetJB piaget;
@@ -26,13 +27,14 @@ namespace PerformanceTest {
         private void btnGo_Click(object sender, EventArgs e) {
             if (btnGo.Text == "Go") {
                 this.n_tasks = 1;
+                this.N_cycles = N_Cycles_0;
                 this.btnGo.Text = "Stop";
                 this.tbMeasures.Clear();
                 this.rbNormal.Enabled = false;
                 this.rbWithYields.Enabled = false;
                 Restart();
             } else {
-                this.piaget.TerminateAll();
+                this.piaget.Stop();
                 btnGo.Text = "Go";
                 this.rbNormal.Enabled = true;
                 this.rbWithYields.Enabled = true;
@@ -46,30 +48,29 @@ namespace PerformanceTest {
                 // We want to make sure that no (or as less as possible) sleep occur as it is a performance test. 
                 // Therefore the task cycle is set to 1.0 which corresponds to the resolution of the clock (stopwatch)
                 if (this.rbNormal.Checked) {
-                    this.piaget.AddParallelTask("Task " + i.ToString(), new NormalInterruptTask(N_Cycles, Done_Callback), 1.0);
+                    this.piaget.AddParallelTask("Task " + i.ToString(), new NormalInterruptTask(this.N_cycles, Done_Callback), 1.0);
                 } else {
-                    this.piaget.AddParallelTask("Task " + i.ToString(), new YieldInterruptTask(N_Cycles, Done_Callback), 1.0);
+                    this.piaget.AddParallelTask("Task " + i.ToString(), new YieldInterruptTask(this.N_cycles, Done_Callback), 1.0);
                 }
             }
             this.piaget.Start();
         }
 
         private void PrepareForOneMoreTask(long elapsed_sw_time) {
-            double T_tasks = (double)elapsed_sw_time / (double)N_Cycles;
+            double T_tasks = (double)elapsed_sw_time / (double)this.N_cycles;
             tbMeasures.AppendText("n = " + this.n_tasks.ToString() + " : " + TimeMeasurement.TimeFormat(T_tasks) +
                                   " (" + TimeMeasurement.TimeFormat(T_tasks / this.n_tasks) + " per task execution)" + 
                                   NewLine);
             this.n_tasks++;
+            this.N_cycles = N_Cycles_0 / n_tasks;
         }
 
         private void Done_Callback() {
             long elapsed_sw_time = this.piaget.Clock.ElapsedSWTime;
             this.n_done_tasks++;
             if (this.n_done_tasks == this.n_tasks) {
-                this.piaget.TerminateAll();
-                
+                this.piaget.Stop();
                 PrepareForOneMoreTask(elapsed_sw_time);
-
                 Restart();
             }
         }

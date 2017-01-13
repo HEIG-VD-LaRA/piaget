@@ -24,7 +24,7 @@ namespace Piaget_Core {
             this.task_manager_thread.Start();
         }
 
-        public void TerminateAll() {
+        public void Stop() {
             task_manager.TerminateAll();
         }
 
