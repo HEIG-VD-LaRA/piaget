@@ -9,9 +9,6 @@ namespace PerformanceTest {
         private const uint N_Cycles = 10000;
         private const long T_Task_Resolution = 1;
         private readonly string NewLine = Environment.NewLine;
-        private long T_task;
-        private long T_task_min;
-        private long T_task_max;
         private uint n_tasks;
         private uint n_done_tasks;
         private PiagetJB piaget;
@@ -29,9 +26,6 @@ namespace PerformanceTest {
         private void btnGo_Click(object sender, EventArgs e) {
             if (btnGo.Text == "Go") {
                 this.n_tasks = 1;
-                this.T_task_min = 0;
-                this.T_task = (long)(1.0 * Clock.ms);
-                this.T_task_max = 0;
                 this.btnGo.Text = "Stop";
                 this.tbMeasures.Clear();
                 this.rbNormal.Enabled = false;
@@ -60,11 +54,11 @@ namespace PerformanceTest {
             this.piaget.Start();
         }
 
-        private void PrepareForOneMoreTask() {
-            tbMeasures.AppendText("n = " + this.n_tasks.ToString() + " : " + TimeMeasurement.TimeFormat(this.T_task) +
-                                  " (" + TimeMeasurement.TimeFormat(this.T_task, this.n_tasks) + " per task execution)" + 
+        private void PrepareForOneMoreTask(long elapsed_sw_time) {
+            double T_tasks = (double)elapsed_sw_time / (double)N_Cycles;
+            tbMeasures.AppendText("n = " + this.n_tasks.ToString() + " : " + TimeMeasurement.TimeFormat(T_tasks) +
+                                  " (" + TimeMeasurement.TimeFormat(T_tasks / this.n_tasks) + " per task execution)" + 
                                   NewLine);
-            this.T_task = ((this.n_tasks + 1) * this.T_task) / this.n_tasks;
             this.n_tasks++;
         }
 
@@ -73,25 +67,9 @@ namespace PerformanceTest {
             this.n_done_tasks++;
             if (this.n_done_tasks == this.n_tasks) {
                 this.piaget.TerminateAll();
+                
+                PrepareForOneMoreTask(elapsed_sw_time);
 
-                if (N_Cycles * this.T_task > elapsed_sw_time) { // Were all the tasks done in time ?
-                    if (this.T_task - this.T_task_min > T_Task_Resolution) {
-                        this.T_task_max = T_task;
-                        this.T_task = (this.T_task + this.T_task_min) / 2;
-                    } else {
-                        PrepareForOneMoreTask();
-                    }
-                } else {
-                    this.T_task_min = T_task;
-                    if (this.T_task_max == 0) { // 
-                        this.T_task *= 2;
-                    } else if (this.T_task_max - this.T_task > T_Task_Resolution) {
-                        this.T_task = (this.T_task + this.T_task_max) / 2;
-                    } else {
-                        this.T_task += T_Task_Resolution;
-                        PrepareForOneMoreTask();
-                    }
-                }
                 Restart();
             }
         }

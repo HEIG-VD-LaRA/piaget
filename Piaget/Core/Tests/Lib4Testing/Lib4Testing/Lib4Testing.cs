@@ -79,15 +79,14 @@ namespace Lib4Testing {
             return time_error;
         }
 
-        static public string TimeFormat(long sw_time, uint div_factor = 1) {
-            double real_time = (double)sw_time / (double)Clock.sec;
+        static public string TimeFormat(double sw_time) {
+            double real_time = sw_time / (double)Clock.sec;
             Units units = Units.sec;
-            double dbl_time = (double)real_time/div_factor;
-            while (dbl_time < 1.0) {
-                dbl_time *= 1000.0;
+            while (real_time < 1.0) {
+                real_time *= 1000.0;
                 units++;
             }
-            return (Math.Truncate(dbl_time * 100.0) / 100.0).ToString() + " " + units.ToString();
+            return (Math.Truncate(real_time * 100.0) / 100.0).ToString() + " " + units.ToString();
         }
     }
 }
