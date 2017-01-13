@@ -10,6 +10,10 @@ namespace Piaget_Core {
         private long elapsed_sw_time = 0;
         private Stopwatch stopwatch = new Stopwatch();
 
+        public void Start() {
+            this.stopwatch.Start();
+        }
+
         static public int ToSleepTime(long piaget_time) {
             return (int)(piaget_time / SystemConfig.SleepTimeIncrement);
         }
@@ -22,10 +26,6 @@ namespace Piaget_Core {
             get {
                 return ToRealTime(this.elapsed_sw_time);
             }
-        }
-
-        public void Start() {
-            this.stopwatch.Start();
         }
 
         public long ElapsedSWTime {

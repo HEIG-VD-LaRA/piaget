@@ -5,14 +5,16 @@ using Piaget_Core.System;
 namespace Piaget_Core {
     class PiagetJB {
         private Thread task_manager_thread;
-        private TaskManager task_manager;
-        private Clock clock = new Clock();
-        public Clock Clock {
-            get { return this.clock; }
+        private ITasksLauncher task_manager;
+        public long ElapsedSWTime {
+            get { return this.task_manager.Clock.ElapsedSWTime; }
+        }
+        public double ElapsedTime {
+            get { return this.task_manager.Clock.ElapsedTime; }
         }
 
         public PiagetJB () {
-            task_manager = new TaskManager(clock);
+            task_manager = (ITasksLauncher)new TaskManager();
         }
 
         public void AddParallelTask(string name, WithTasking task, double sw_period) {

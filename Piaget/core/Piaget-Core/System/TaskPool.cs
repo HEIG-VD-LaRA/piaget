@@ -12,7 +12,8 @@ namespace Piaget_Core.System {
 
     class TaskPool : DoubleLinkedListSorted<TaskPoolNode> {
         static private Func<TaskPoolNode,long> get_wakeup_time = delegate (TaskPoolNode node) { return node.task.WakeupSWTime; };
-        private Clock clock;
+        // When running, the task manager needs that there is at least one task in the pool.
+        // So when there is no tasks to be executed, null_task will appear in the pool.
         private readonly Task null_task = new Task();
         private readonly long null_task_period = (long)(100.0 * Clock.ms);
 
@@ -22,7 +23,6 @@ namespace Piaget_Core.System {
         }
 
         public TaskPool(Clock clock) : base(get_wakeup_time) {
-            this.clock = clock;
             this.null_task.Init("Null task", null_task_period, null, clock);
             this.null_task.SetState(() => { }); // void procedure to be executed
             Add(new TaskPoolNode(this.null_task));

@@ -1,21 +1,64 @@
-﻿
-using System;
+﻿namespace Piaget_Core.System {
 
-namespace Piaget_Core.System {
-    class TaskManager  {
+    // Interface for PiagetJB
+    interface ITasksLauncher {
+        void AddParallelTask(string name, WithTasking with_task, double sw_period);
+        void Start();
+        Clock Clock { get; }
+        void TerminateAll();
+    }
+    // Interface for tasks
+    interface ITaskPoolManager {
+        void AddParallelTask(string name, WithTasking with_task, double sw_period);
+        void AddSerialTask(string name, WithTasking with_task, double sw_period, Task parent);
+        void Terminate(Task task);
+        void Hibernate(Task task);
+        void Recover(Task task);
+        void RemoveFromPool(Task task, bool is_hibernated);
+    }
+
+    class TaskManager : ITasksLauncher, ITaskPoolManager {
         private TaskPool task_pool;
         private HibernatedTaskPool hibernated_task_pool = new HibernatedTaskPool();
         private Clock clock;
 
-        public TaskManager(Clock clock) {
-            this.clock = clock;
-            this.task_pool = new TaskPool(clock);
-        }
 
+        // METHODS FOR ITaskManager_Launcher, ITaskManager_Tasking ------------------------------------------------
         public void AddParallelTask(string name, WithTasking with_task, double sw_period) {
-            with_task.__NewTask(name, sw_period, this, this.clock);
+            with_task.__NewTask(name, sw_period, (ITaskPoolManager)this, this.clock);
             this.task_pool.Add((Task)with_task.Task);
         }
+
+
+        // METHODS FOR ITaskManager_Launcher ------------------------------------------------
+
+        public TaskManager() {
+            this.clock = new Clock();
+            this.task_pool = new TaskPool(this.clock);
+        }
+
+        public void Start() {
+            AddSystemTasks();
+            // Start multitasking
+            this.clock.Start();
+            while (true) {
+                this.task_pool.Current.task.Sleep();
+                this.task_pool.Current.task.Exec();
+                this.clock.UpdateElapsedTime();
+                this.task_pool.MoveNext();
+            }
+        }
+
+        public Clock Clock {
+            get { return this.clock; }
+        }
+
+        public void TerminateAll() {
+            this.task_pool.Reset();
+        }
+
+
+        // METHODS FOR ITaskManager_Tasking ------------------------------------------------
 
         public void AddSerialTask(string name, WithTasking with_task, double sw_period, Task parent) {
             with_task.__NewTask(name, sw_period, this, this.clock);
@@ -26,33 +69,8 @@ namespace Piaget_Core.System {
             }
         }
 
-        private void MoveToChildTask(Task new_task, Task parent) {
-            new_task.InsertAfter(parent);
-            task_pool.Current.task = new_task;
-        }
-
-        public void Start() {
-            AddSystemTasks();
-            // Start multitasking
-            // (...)
-            this.clock.Start();
-            while (true) {
-                this.task_pool.Current.task.Sleep();
-                this.task_pool.Current.task.Exec();
-                this.clock.UpdateElapsedTime();
-                this.task_pool.MoveNext();
-            }
-        }
-        private void AddSystemTasks() {
-            // TO BE IMPLEMENTED
-        }
-
         public void Terminate(Task task) {
             task.SetTerminated();
-            this.RemoveFromPool(task);
-        }
-        public void RemoveFromPool(Task task) {
-            this.task_pool.Remove(task);
         }
 
         public void Hibernate(Task task) {
@@ -68,8 +86,28 @@ namespace Piaget_Core.System {
             this.task_pool.Add(task_pool_node);
         }
 
-        public void TerminateAll() {
-            this.task_pool.Reset();
+        public void RemoveFromPool(Task task, bool is_hibernated) {
+            TaskPoolNode task_pool_node;
+            if (is_hibernated) {
+                task_pool_node = this.hibernated_task_pool.Find(task);
+                this.hibernated_task_pool.Remove(this.task_pool.Find(task));
+            } else {
+                task_pool_node = this.task_pool.Find(task);
+                this.task_pool.Remove(this.task_pool.Find(task));
+            }
+        }
+
+
+        // PRIVATE METHODS ------------------------------------------------
+
+        // Tasks that exist in every Piaget applications
+        private void AddSystemTasks() {
+            // TO BE IMPLEMENTED
+        }
+
+        private void MoveToChildTask(Task new_task, Task parent) {
+            new_task.InsertAfter(parent);
+            task_pool.Current.task = new_task;
         }
     }
 }

@@ -7,13 +7,13 @@ namespace PerformanceTest {
         private readonly Action done_callback;
         private uint cycles;
 
-        public NormalInterruptTask(uint max_cycles, Action done_callback) {
-            this.N_Cycles = max_cycles;
+        public NormalInterruptTask(uint N_Cycles, Action done_callback) {
+            this.N_Cycles = N_Cycles;
             this.done_callback = done_callback;
         }
 
         protected override void Reset() {
-            this.cycles = 0;
+            this.cycles = 1;
             this.Task.SetState(A);
         }
         private void A() {

@@ -8,25 +8,50 @@ namespace PerformanceTest {
         private readonly Action done_callback;
         private uint cycles;
 
-        public YieldInterruptTask(uint max_cycles, Action done_callback) { // max_cycles must be k * 2 !
-            this.N_Cycles = max_cycles;
+        public YieldInterruptTask(uint N_Cycles, Action done_callback) {
+            this.N_Cycles = N_Cycles;
             this.done_callback = done_callback;
         }
 
         protected override void Reset() {
-            this.cycles = 0;
+            this.cycles = 1;
             this.Task.SetState(A);
         }
+        // This routine is executed in 2 main parts :
+        // - 1st: It enters the for loop and is interrupted at every iteration
+        // - 2nd: Once the loop is done, execution is resumed right after the loop.
+        //        At which point, the current state is set to B.
         private Yieldable A() {
-            // The division by 2 is just there to test if A() will be called again after it completed
-            // the first half of the cycles and therefore returned without a yield return null statement.
-            for (int i = 0; i < this.N_Cycles / 2; i++) {
+            for (uint i = this.cycles; i < this.N_Cycles - 10; i++) {
                 this.cycles++;
                 yield return null;
             }
-            if (this.cycles == this.N_Cycles) {
-                this.done_callback();
+            this.cycles++;
+            this.Task.SetState(B);
+        }
+
+        // This routine is executed in 2 main parts :
+        // - 1st: It is interrupted 3 times with the yield keyword and 1 time by exiting the routine
+        // - 2nd: Idem, but at the end, the condition cycles == N_Cycles - 1 becomes true,
+        //        then the current state is set to C.
+        private Yieldable B() {
+            this.cycles++;
+            yield return null;
+            this.cycles++;
+            yield return null;
+            this.cycles++;
+            yield return null;
+
+            this.cycles++;
+            if (this.cycles == this.N_Cycles - 1) {
+                this.Task.SetState(C);
             }
+        }
+
+        // A last state to show that it is possible to mix Yieldable and regular (void) state routines.
+        private void C() {
+            this.cycles++;
+            this.done_callback();
         }
     }
 }

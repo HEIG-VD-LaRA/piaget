@@ -66,7 +66,7 @@ namespace PerformanceTest {
         }
 
         private void Done_Callback() {
-            long elapsed_sw_time = this.piaget.Clock.ElapsedSWTime;
+            long elapsed_sw_time = this.piaget.ElapsedSWTime;
             this.n_done_tasks++;
             if (this.n_done_tasks == this.n_tasks) {
                 this.piaget.Stop();

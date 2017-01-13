@@ -10,11 +10,12 @@ namespace Piaget_Core {
     interface ITask {
         string Name { get; }
         double Period { get; }
+        //
         void SetState(Action state_action_proc);
         void SetState(Func<Yieldable> state_yieldable_proc, int dummy = 0); // See comment below for the dummy parameter
-        void SetSleep(long extra_time);
+        void SetSleep(long time);
         void AddParallelTask(string name, WithTasking task, long period);
-        void AddSerialTask(string name, WithTasking task, long period);
+        void AddChildTask(string name, WithTasking task, long period);
         void SetHibernated();
         void SetRecovered();
         void SetTerminated();
@@ -23,8 +24,9 @@ namespace Piaget_Core {
     class Task : DoubleLinkedNode<Task>, ITask {
         private string name;
         protected Clock clock;
-        private TaskManager task_manager;
+        private ITaskPoolManager task_manager;
         private long wakeup_sw_time;
+        private bool is_hibernated;
 
         private Action state_action_proc;
         private Func<Yieldable> state_yieldable_proc;
@@ -41,11 +43,12 @@ namespace Piaget_Core {
             get { return this.wakeup_sw_time; }
         }
 
-        public void Init(string name, double sw_period, TaskManager task_manager, Clock clock) {
+        public void Init(string name, double sw_period, ITaskPoolManager task_manager, Clock clock) {
             this.name = name;
             this.sw_period = (long)sw_period;
             this.clock = clock;
             this.task_manager = task_manager;
+            this.is_hibernated = false;
             ResetWakeupTime();
         }
         
@@ -85,7 +88,7 @@ namespace Piaget_Core {
         }
 
         public void SetSleep(long time) {
-            this.wakeup_sw_time += time - sw_period;
+            this.wakeup_sw_time += time - sw_period; // "- sw_period" to cancel the += sw_period at the end of Exec()
         }
 
         public void Sleep() {
@@ -99,21 +102,23 @@ namespace Piaget_Core {
             this.task_manager.AddParallelTask(name, task, period);
         }
 
-        public void AddSerialTask(string name, WithTasking task, long period) {
+        public void AddChildTask(string name, WithTasking task, long period) {
             this.task_manager.AddSerialTask(name, task, period, this);
         }
 
         public void SetHibernated() {
+            this.is_hibernated = true;
             task_manager.Hibernate(this);
         }
 
         public void SetRecovered() {
+            this.is_hibernated = false;
             this.wakeup_sw_time = this.clock.ElapsedSWTime;
             task_manager.Recover(this);
         }
 
         public void SetTerminated() {
-            task_manager.RemoveFromPool(this);
+            this.task_manager.RemoveFromPool(this, this.is_hibernated);
         }
     }
 }
