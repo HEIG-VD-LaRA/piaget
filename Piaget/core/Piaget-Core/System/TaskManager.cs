@@ -68,15 +68,8 @@ namespace Piaget_Core.System {
             this.task_pool.Add(task_pool_node);
         }
 
-        public TaskPoolNode TerminateAll() {
-            TaskPoolNode first = this.task_pool.Current;
-            TaskPoolNode current = first;
-            do {
-                current.task.SetTerminated();
-                // this.task_pool.Remove(current) ??
-                current = current.next;
-            } while (current != first);
-            return first;
+        public void TerminateAll() {
+            this.task_pool.Reset();
         }
     }
 }

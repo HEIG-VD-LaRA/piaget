@@ -6,7 +6,7 @@ using Lib4Testing;
 
 namespace TestOneApp {
     public partial class frmTestOneTask : Form {
-        private Thread piaget_thread, update_thread;
+        private Thread update_thread;
         private PiagetNG piaget;
         private double elapsed_time_ref;
         private double absolute_error, absolute_delta_error;
@@ -24,10 +24,8 @@ namespace TestOneApp {
 
         private void btnGo_Click(object sender, EventArgs e) {
             this.piaget = new PiagetNG();
-            this.piaget.AddParallelTask("The task !", new TestOneTask(UpdateMeasure), 50.0 * Clock.us);
-
-            this.piaget_thread = new Thread(this.piaget.Start);
-            this.piaget_thread.Start();
+            this.piaget.AddParallelTask("The task !", new SingleTask(UpdateMeasure), 50.0 * Clock.us);
+            this.piaget.Start();
 
             this.update_thread = new Thread(UpdateForm);
             this.update_thread.Start();
@@ -44,7 +42,7 @@ namespace TestOneApp {
         private void UpdateForm() {
             while (true) {
                 lblElapsedTimeRef.Text = this.elapsed_time_ref.ToString();
-                lblElapsedTime.Text = this.piaget.TheClock.ElapsedTime.ToString();
+                lblElapsedTime.Text = this.piaget.Clock.ElapsedTime.ToString();
                 lblAbsoluteError.Text = (1000.0 * this.absolute_error).ToString();
                 lblRelativeError.Text = (100 * this.relative_error).ToString();
                 lblAbsoluteDeltaError.Text = (1000.0 * this.absolute_delta_error).ToString();
@@ -52,8 +50,5 @@ namespace TestOneApp {
                 Thread.Sleep(100);
             }
         }
-
-
-
     }
 }

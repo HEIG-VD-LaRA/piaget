@@ -5,13 +5,13 @@ using System.Threading;
 
 namespace TestOneApp {
 
-    class TestOneTask : WithTask {
+    class SingleTask : WithTask {
 
         private TimeMeasurement time_measurement;
         private Action<ErrorValue> update_measure_callback;
         private int n_cycle;
 
-        public TestOneTask(Action<ErrorValue> update_measure_callback) {
+        public SingleTask(Action<ErrorValue> update_measure_callback) {
             this.update_measure_callback = update_measure_callback;
         }
 

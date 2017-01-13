@@ -1,14 +1,17 @@
-﻿using Piaget_Core.System;
+﻿using System.Threading;
+
+using Piaget_Core.System;
 
 namespace Piaget_Core {
-    class PiagetNG {
+    class PiagetJB {
+        private Thread task_manager_thread;
         private TaskManager task_manager;
         private Clock clock = new Clock();
-        public Clock TheClock {
+        public Clock Clock {
             get { return this.clock; }
         }
 
-        public PiagetNG () {
+        public PiagetJB () {
             task_manager = new TaskManager(clock);
         }
 
@@ -17,11 +20,12 @@ namespace Piaget_Core {
         }
 
         public void Start() {
-            task_manager.Start();
+            this.task_manager_thread = new Thread(this.task_manager.Start);
+            this.task_manager_thread.Start();
         }
 
-        public TaskPoolNode TerminateAll() {
-            return task_manager.TerminateAll();
+        public void TerminateAll() {
+            task_manager.TerminateAll();
         }
 
     }

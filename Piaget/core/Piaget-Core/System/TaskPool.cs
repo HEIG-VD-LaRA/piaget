@@ -16,6 +16,11 @@ namespace Piaget_Core.System {
         private readonly Task null_task = new Task();
         private readonly long null_task_period = (long)(100.0 * Clock.ms);
 
+        public TaskPoolNode Current {
+            get { return this.First; }
+            set { this.First = value; }
+        }
+
         public TaskPool(Clock clock) : base(get_wakeup_time) {
             this.clock = clock;
             this.null_task.Init("Null task", null_task_period, null, clock);
@@ -23,9 +28,10 @@ namespace Piaget_Core.System {
             Add(new TaskPoolNode(this.null_task));
         }
 
-        public TaskPoolNode Current {
-            get { return this.First; }
-            set { this.First = value; }
+        public void Reset() {
+            Current.next = Current;
+            Current.previous = Current;
+            Current.task = this.null_task;
         }
 
         public void Add(Task task) {
@@ -86,54 +92,33 @@ namespace Piaget_Core.System {
         }
 
         public void MoveNext() {
+            // At this point, the Current task is the task that was lastly executed and the tasks list
+            // need to be wandered so that the Current task can be moved in the right place in the list,
+            // as the list is sorted by scheduling order
             TaskPoolNode next_task_pool_node = Current.next;
+
             while (true) {
-                if (get_wakeup_time(next_task_pool_node) >= get_wakeup_time(Current)) {
-                    if (next_task_pool_node == Current.next) { // == Il faut encore exécuter la tâche courante avant la suivante ?
-                        return;
+                // If the next execution of the current task is scheduled later as the current element of the list,
+                // Then we know that the current task will be moved after the current element (but not necessarly
+                // right after), so we move to the next element of the list and do this check again
+                if (get_wakeup_time(Current) > get_wakeup_time(next_task_pool_node)) {
+                    next_task_pool_node = next_task_pool_node.next;
+                // Otherwise we have found where the current task has to be in the list
+                } else {
+                    // Check if moving to the next task is actually needed, because it isn't the case when the current 
+                    // task is to be scheduled to be executed again before all the tasks.
+                    if (next_task_pool_node != Current.next) {
+                        // Check if the current task has to be moved, because if it has to be executed after the last
+                        // task in list, it is already at the right position, as the list is circular.
+                        if (next_task_pool_node != Current) {
+                            TaskPoolNode current_orig = Current;
+                            current_orig.MoveBefore(next_task_pool_node);
+                        }
+                        Current = Current.next;
                     }
-                    if (next_task_pool_node == Current) { // On a fait le tour et on est arrivé de nouveau sur current ?
-                        Current = Current.next; // ça veut dire que 
-                        return;
-                    }
-                    Current.MoveBefore(next_task_pool_node);
                     return;
                 }
-                next_task_pool_node = next_task_pool_node.next;
             }
         }
-
     }
-        //public new void Add(Task task) {
-        //    base.Add(task);
-        //}
 }
-
-    //class TaskCircularList {
-    //    private class TaskNode {
-    //        public Task obj;
-    //        public TaskNode next;
-    //    }
-    //    private TaskNode Current = null;
-
-    //    public void Add(Task task) {
-    //        TaskNode new_task_node = new TaskNode();
-    //        new_task_node.obj = task;
-
-    //        if (Current == null) {
-    //            Current = new_task_node;
-    //            Current.next = Current;
-    //        } else {
-    //            new_task_node.next = Current.next;
-    //            Current.next = new_task_node;
-    //        }
-    //    }
-    //    public Task CurrentTask {
-    //        get {
-    //            return Current.obj;
-    //        }
-    //    }
-    //    public void MoveNext() {
-    //        Current = Current.next;
-    //    }
-    //}

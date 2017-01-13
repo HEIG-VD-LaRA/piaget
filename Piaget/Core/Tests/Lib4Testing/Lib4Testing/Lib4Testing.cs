@@ -55,38 +55,39 @@ namespace Lib4Testing {
     }
 
     class TimeMeasurement {
+        enum Units { sec, ms, us, ns };
         private ErrorValue time_error;
         private double period;
         private int n_cycles;
-        //private long stopwatch_period;
         private bool has_started = false;
         private long time_0;
 
         public TimeMeasurement(double period) {
             time_error = new ErrorValue();
             this.period = period;
-            //this.stopwatch_period = sec / Stopwatch.Frequency;
         }
         public ErrorValue ErrTimeCheck(int delta_cycles = 1) {
             this.n_cycles += delta_cycles;
-            if (! this.has_started) {
+            if (!this.has_started) {
                 this.has_started = true;
-                //this.stopwatch.Start();
                 this.n_cycles = 0;
                 time_0 = Stopwatch.GetTimestamp();
             } else {
-                time_error.Calculate(reference_value : (double)(Stopwatch.GetTimestamp() - time_0) / (double)Stopwatch.Frequency,
-                                     mesured_value : (double)this.n_cycles * period);
+                time_error.Calculate(reference_value: (double)(Stopwatch.GetTimestamp() - time_0) / (double)Stopwatch.Frequency,
+                                     mesured_value: (double)this.n_cycles * period);
             }
             return time_error;
         }
 
-        public static double ToSeconds(long real_time) {
-            return (double)real_time / (double)Clock.sec;
-        }
-
-        public static double ToMilliSeconds(long real_time) {
-            return 1000.0 * ToSeconds(real_time);
+        static public string TimeFormat(long sw_time, uint div_factor = 1) {
+            double real_time = (double)sw_time / (double)Clock.sec;
+            Units units = Units.sec;
+            double dbl_time = (double)real_time/div_factor;
+            while (dbl_time < 1.0) {
+                dbl_time *= 1000.0;
+                units++;
+            }
+            return (Math.Truncate(dbl_time * 100.0) / 100.0).ToString() + " " + units.ToString();
         }
     }
 }
