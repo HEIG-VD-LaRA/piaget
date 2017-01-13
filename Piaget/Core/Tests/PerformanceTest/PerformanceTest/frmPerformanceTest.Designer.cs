@@ -32,7 +32,7 @@
             // 
             // btnGo
             // 
-            this.btnGo.Location = new System.Drawing.Point(140, 262);
+            this.btnGo.Location = new System.Drawing.Point(195, 262);
             this.btnGo.Name = "btnGo";
             this.btnGo.Size = new System.Drawing.Size(75, 23);
             this.btnGo.TabIndex = 0;
@@ -49,7 +49,7 @@
             this.tbMeasures.ReadOnly = true;
             this.tbMeasures.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.tbMeasures.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbMeasures.Size = new System.Drawing.Size(203, 193);
+            this.tbMeasures.Size = new System.Drawing.Size(258, 193);
             this.tbMeasures.TabIndex = 21;
             this.tbMeasures.TabStop = false;
             this.tbMeasures.WordWrap = false;
@@ -89,7 +89,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(230, 302);
+            this.ClientSize = new System.Drawing.Size(282, 302);
             this.Controls.Add(this.rbWithYields);
             this.Controls.Add(this.rbNormal);
             this.Controls.Add(this.label1);

@@ -49,6 +49,8 @@ namespace PerformanceTest {
             this.n_done_tasks = 0;
             this.piaget = new PiagetJB();
             for (int i = 1; i <= n_tasks; i++ ) {
+                // We want to make sure that no (or as less as possible) sleep occur as it is a performance test. 
+                // Therefore the task cycle is set to 1.0 which corresponds to the resolution of the clock (stopwatch)
                 if (this.rbNormal.Checked) {
                     this.piaget.AddParallelTask("Task " + i.ToString(), new NormalInterruptTask(N_Cycles, Done_Callback), 1.0);
                 } else {
@@ -60,7 +62,8 @@ namespace PerformanceTest {
 
         private void PrepareForOneMoreTask() {
             tbMeasures.AppendText("n = " + this.n_tasks.ToString() + " : " + TimeMeasurement.TimeFormat(this.T_task) +
-                                  " (" + TimeMeasurement.TimeFormat(this.T_task, this.n_tasks) + " per task)" + NewLine);
+                                  " (" + TimeMeasurement.TimeFormat(this.T_task, this.n_tasks) + " per task execution)" + 
+                                  NewLine);
             this.T_task = ((this.n_tasks + 1) * this.T_task) / this.n_tasks;
             this.n_tasks++;
         }
@@ -69,7 +72,7 @@ namespace PerformanceTest {
             long elapsed_sw_time = this.piaget.Clock.ElapsedSWTime;
             this.n_done_tasks++;
             if (this.n_done_tasks == this.n_tasks) {
-                this.piaget.TerminateAll(); // temp !!!
+                this.piaget.TerminateAll();
 
                 if (N_Cycles * this.T_task > elapsed_sw_time) { // Were all the tasks done in time ?
                     if (this.T_task - this.T_task_min > T_Task_Resolution) {

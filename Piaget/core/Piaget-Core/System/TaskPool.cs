@@ -108,13 +108,12 @@ namespace Piaget_Core.System {
                     // Check if moving to the next task is actually needed, because it isn't the case when the current 
                     // task is to be scheduled to be executed again before all the tasks.
                     if (next_task_pool_node != Current.next) {
-                        // Check if the current task has to be moved, because if it has to be executed after the last
-                        // task in list, it is already at the right position, as the list is circular.
-                        if (next_task_pool_node != Current) {
-                            TaskPoolNode current_orig = Current;
-                            current_orig.MoveBefore(next_task_pool_node);
-                        }
                         Current = Current.next;
+                        // Check if the last executed task has to be moved in the list, because if it has to be executed  
+                        // after the last task in list, it is already at the right position, as the list is circular.
+                        if (next_task_pool_node != Current.previous) {
+                            Current.previous.MoveBefore(next_task_pool_node);
+                        }
                     }
                     return;
                 }
