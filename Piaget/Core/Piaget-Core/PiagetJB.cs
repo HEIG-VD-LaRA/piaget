@@ -15,7 +15,7 @@ namespace Piaget_Core {
             task_manager = new TaskManager(clock);
         }
 
-        public void AddParallelTask(string name, WithTask task, double sw_period) {
+        public void AddParallelTask(string name, WithTasking task, double sw_period) {
             task_manager.AddParallelTask(name, task, sw_period);
         }
 

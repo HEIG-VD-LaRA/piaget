@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Threading;
-using Piaget_Core.Lib;
+using Yieldable = System.Collections.IEnumerator;
 
+using Piaget_Core.Lib;
 using Piaget_Core.System;
 
 namespace Piaget_Core {
@@ -9,10 +10,11 @@ namespace Piaget_Core {
     interface ITask {
         string Name { get; }
         double Period { get; }
-        void SetState(Action next_state_procedure);
+        void SetState(Action state_action_proc);
+        void SetState(Func<Yieldable> state_yieldable_proc, int dummy = 0); // See comment below for the dummy parameter
         void SetSleep(long extra_time);
-        void AddParallelTask(string name, WithTask task, long period);
-        void AddSerialTask(string name, WithTask task, long period);
+        void AddParallelTask(string name, WithTasking task, long period);
+        void AddSerialTask(string name, WithTasking task, long period);
         void SetHibernated();
         void SetRecovered();
         void SetTerminated();
@@ -22,8 +24,11 @@ namespace Piaget_Core {
         private string name;
         protected Clock clock;
         private TaskManager task_manager;
-        private Action current_procedure;
         private long wakeup_sw_time;
+
+        private Action state_action_proc;
+        private Func<Yieldable> state_yieldable_proc;
+        private Yieldable state_current_exec;
 
         public long sw_period;
         public double Period {
@@ -54,12 +59,28 @@ namespace Piaget_Core {
             }
         }
 
-        public void SetState(Action next_state_procedure) {
-            this.current_procedure = next_state_procedure;
+        public void SetState(Action state_action_proc) {
+            this.state_action_proc = state_action_proc;
+        }
+
+        // The dummy parameter avoid a strange compiler error. It can be ignored when using this overloading of SetState.
+        // More details here : http://stackoverflow.com/questions/4573011/why-is-funct-ambiguous-with-funcienumerablet
+        public void SetState(Func<Yieldable> state_yieldable_proc, int dummy = 0) {
+            this.state_action_proc = null;
+            this.state_yieldable_proc = state_yieldable_proc;
+            this.state_current_exec = state_yieldable_proc();
         }
 
         public void Exec() {
-            this.current_procedure();
+            if (this.state_action_proc != null) {
+                this.state_action_proc();
+            } else {
+                // Did we reach the end of the yieldable procedure ?
+                if (! this.state_current_exec.MoveNext()) {
+                    // Then we reset the enumerator so that the procedure will start from the beginning at the next execution
+                    this.state_current_exec = this.state_yieldable_proc();
+                }
+            }
             this.wakeup_sw_time += sw_period;
         }
 
@@ -74,11 +95,11 @@ namespace Piaget_Core {
             }
         }
 
-        public void AddParallelTask (string name, WithTask task, long period) {
+        public void AddParallelTask (string name, WithTasking task, long period) {
             this.task_manager.AddParallelTask(name, task, period);
         }
 
-        public void AddSerialTask(string name, WithTask task, long period) {
+        public void AddSerialTask(string name, WithTasking task, long period) {
             this.task_manager.AddSerialTask(name, task, period, this);
         }
 

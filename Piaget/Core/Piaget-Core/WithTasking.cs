@@ -1,7 +1,8 @@
 ﻿using Piaget_Core.System;
+using System;
 
 namespace Piaget_Core {
-    abstract class WithTask {
+    abstract class WithTasking {
         private ITask i_task = new Task();
         public ITask Task {
             get { return this.i_task; }

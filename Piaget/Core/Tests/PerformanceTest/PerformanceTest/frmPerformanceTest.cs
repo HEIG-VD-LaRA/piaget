@@ -34,10 +34,14 @@ namespace PerformanceTest {
                 this.T_task_max = 0;
                 this.btnGo.Text = "Stop";
                 this.tbMeasures.Clear();
+                this.rbNormal.Enabled = false;
+                this.rbWithYields.Enabled = false;
                 Restart();
             } else {
                 this.piaget.TerminateAll();
                 btnGo.Text = "Go";
+                this.rbNormal.Enabled = true;
+                this.rbWithYields.Enabled = true;
             }
         }
 
@@ -45,7 +49,11 @@ namespace PerformanceTest {
             this.n_done_tasks = 0;
             this.piaget = new PiagetJB();
             for (int i = 1; i <= n_tasks; i++ ) {
-                this.piaget.AddParallelTask("Task " + i.ToString(), new SingleTask(N_Cycles, Done_Callback), 1.0);
+                if (this.rbNormal.Checked) {
+                    this.piaget.AddParallelTask("Task " + i.ToString(), new NormalInterruptTask(N_Cycles, Done_Callback), 1.0);
+                } else {
+                    this.piaget.AddParallelTask("Task " + i.ToString(), new YieldInterruptTask(N_Cycles, Done_Callback), 1.0);
+                }
             }
             this.piaget.Start();
         }

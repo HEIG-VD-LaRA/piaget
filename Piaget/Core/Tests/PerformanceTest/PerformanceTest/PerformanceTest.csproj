@@ -54,7 +54,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SingleTask.cs" />
+    <Compile Include="YieldInterruptTask.cs" />
+    <Compile Include="NormalInterruptTask.cs" />
     <EmbeddedResource Include="frmPerformanceTest.resx">
       <DependentUpon>frmPerformanceTest.cs</DependentUpon>
     </EmbeddedResource>

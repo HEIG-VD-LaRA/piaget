@@ -2,12 +2,12 @@
 using Piaget_Core;
 
 namespace PerformanceTest {
-    class SingleTask : WithTask {
+    class NormalInterruptTask : WithTasking {
         private readonly uint N_Cycles;
         private readonly Action done_callback;
         private uint cycles;
 
-        public SingleTask(uint max_cycles, Action done_callback) {
+        public NormalInterruptTask(uint max_cycles, Action done_callback) {
             this.N_Cycles = max_cycles;
             this.done_callback = done_callback;
         }

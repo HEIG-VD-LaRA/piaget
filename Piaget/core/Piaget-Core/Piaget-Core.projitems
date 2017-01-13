@@ -19,6 +19,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)System\Task.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)System\TaskManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)System\TaskPool.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)WithTask.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WithTasking.cs" />
   </ItemGroup>
 </Project>

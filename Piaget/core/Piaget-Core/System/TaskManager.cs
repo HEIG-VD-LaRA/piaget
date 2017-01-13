@@ -12,12 +12,12 @@ namespace Piaget_Core.System {
             this.task_pool = new TaskPool(clock);
         }
 
-        public void AddParallelTask(string name, WithTask with_task, double sw_period) {
+        public void AddParallelTask(string name, WithTasking with_task, double sw_period) {
             with_task.__NewTask(name, sw_period, this, this.clock);
             this.task_pool.Add((Task)with_task.Task);
         }
 
-        public void AddSerialTask(string name, WithTask with_task, double sw_period, Task parent) {
+        public void AddSerialTask(string name, WithTasking with_task, double sw_period, Task parent) {
             with_task.__NewTask(name, sw_period, this, this.clock);
             // If the user use the same task state to add several serial tasks,
             // only the first one added will be the top one
