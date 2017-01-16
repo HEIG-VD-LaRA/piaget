@@ -23,6 +23,7 @@ namespace TestChildTask {
         }
 
         private void Done_Callback() {
+            this.tbMessages.AppendText("---- DONE ----" + NewLine);
             this.btnGo.Text = "Go";
             this.piaget.Stop();
         }
@@ -32,10 +33,10 @@ namespace TestChildTask {
                 this.tbMessages.Clear();
                 this.btnGo.Text = "Stop";
                 this.piaget = new PiagetJB();
-                this.piaget.AddParallelTask("Task 1",
-                                            new SerialTask(1, (int)nbMaxLevel.Value, 
+                this.piaget.AddParallelTask("Task level 0",
+                                            new SerialTask(0, (int)nbMaxLevel.Value, 
                                                            FormUpdate_Callback, Done_Callback), 
-                                            0.1 * Clock.sec);
+                                            0.5 * Clock.sec);
                 this.piaget.Start();
             } else {
                 this.btnGo.Text = "Go";

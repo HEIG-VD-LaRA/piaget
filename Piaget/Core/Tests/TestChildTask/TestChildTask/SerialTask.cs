@@ -27,8 +27,8 @@ namespace TestChildTask {
 
         private void SecondState() {
             this.update_form_callback(this.Task.Name + " : Second state");
-            if (this.level < this.max_level) {
-                this.Task.AddChildTask("Task " + (level + 1), 
+            if (this.level < this.max_level - 1) {
+                this.Task.AddChildTask("Task level " + (level + 1), 
                                        new SerialTask(this.level + 1, max_level, 
                                                       this.update_form_callback),
                                        this.Task.SWPeriod);
@@ -38,7 +38,7 @@ namespace TestChildTask {
 
         private void LastState() {
             this.update_form_callback(this.Task.Name + " : Last state");
-            if (level == 1) {
+            if (level == 0) {
                 this.done_callback();
             }
             this.Task.SetTerminated();

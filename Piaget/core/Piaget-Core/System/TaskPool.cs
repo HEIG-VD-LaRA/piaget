@@ -63,6 +63,7 @@ namespace Piaget_Core.System {
                 new_executing_task.next = bottom_task;
                 bottom_task.previous = new_executing_task;
                 executing_task_pool_node.task = new_executing_task;
+                new_executing_task.ResetWakeupTime(true);
             }
         }
 

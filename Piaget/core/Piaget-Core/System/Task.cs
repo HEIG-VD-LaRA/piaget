@@ -52,8 +52,11 @@ namespace Piaget_Core {
             ResetWakeupTime();
         }
         
-        public void ResetWakeupTime() {
+        public void ResetWakeupTime(bool after_child_task_done = false) {
             this.wakeup_sw_time = clock.ElapsedSWTime;
+            if (after_child_task_done) {
+                this.wakeup_sw_time += this.sw_period;
+            }
         }
 
         public string Name {
