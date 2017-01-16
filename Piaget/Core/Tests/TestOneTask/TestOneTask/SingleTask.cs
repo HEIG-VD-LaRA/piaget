@@ -1,11 +1,10 @@
 ﻿using Lib4Testing;
 using Piaget_Core;
 using System;
-using System.Threading;
 
 namespace TestOneApp {
 
-    class SingleTask : WithTask {
+    class SingleTask : WithTasking {
 
         private TimeMeasurement time_measurement;
         private Action<ErrorValue> update_measure_callback;
@@ -17,7 +16,7 @@ namespace TestOneApp {
 
         protected override void Reset() {
             n_cycle = 0;
-            time_measurement = new TimeMeasurement(this.Task.Period);
+            time_measurement = new TimeMeasurement(this.Task.SWPeriod / Clock.sec);
             this.Task.SetState(A);
         }
 

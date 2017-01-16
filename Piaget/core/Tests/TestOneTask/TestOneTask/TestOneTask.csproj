@@ -82,8 +82,8 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <Import Project="..\..\..\Piaget-Core\Piaget-Core.projitems" Label="Shared" />
   <Import Project="..\..\Lib4Testing\Lib4Testing\Lib4Testing.projitems" Label="Shared" />
+  <Import Project="..\..\..\Piaget-Core\Piaget-Core.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

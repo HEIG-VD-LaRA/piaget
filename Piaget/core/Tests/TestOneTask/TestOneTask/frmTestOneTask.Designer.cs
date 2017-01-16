@@ -36,11 +36,12 @@
             this.label7 = new System.Windows.Forms.Label();
             this.lblElapsedTimeRef = new System.Windows.Forms.Label();
             this.lblElapsedTime = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // Btn_Go
             // 
-            this.Btn_Go.Location = new System.Drawing.Point(94, 186);
+            this.Btn_Go.Location = new System.Drawing.Point(134, 186);
             this.Btn_Go.Name = "Btn_Go";
             this.Btn_Go.Size = new System.Drawing.Size(75, 23);
             this.Btn_Go.TabIndex = 0;
@@ -51,7 +52,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(31, 56);
+            this.label1.Location = new System.Drawing.Point(31, 68);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(111, 13);
             this.label1.TabIndex = 2;
@@ -60,7 +61,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(31, 78);
+            this.label2.Location = new System.Drawing.Point(31, 90);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(98, 13);
             this.label2.TabIndex = 3;
@@ -69,7 +70,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(31, 101);
+            this.label3.Location = new System.Drawing.Point(31, 113);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(178, 13);
             this.label3.TabIndex = 4;
@@ -78,7 +79,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(31, 124);
+            this.label4.Location = new System.Drawing.Point(31, 136);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(165, 13);
             this.label4.TabIndex = 5;
@@ -87,38 +88,34 @@
             // lblAbsoluteError
             // 
             this.lblAbsoluteError.AutoSize = true;
-            this.lblAbsoluteError.Location = new System.Drawing.Point(140, 56);
+            this.lblAbsoluteError.Location = new System.Drawing.Point(140, 68);
             this.lblAbsoluteError.Name = "lblAbsoluteError";
-            this.lblAbsoluteError.Size = new System.Drawing.Size(80, 13);
+            this.lblAbsoluteError.Size = new System.Drawing.Size(0, 13);
             this.lblAbsoluteError.TabIndex = 6;
-            this.lblAbsoluteError.Text = "lblAbsoluteError";
             // 
             // lblRelativeError
             // 
             this.lblRelativeError.AutoSize = true;
-            this.lblRelativeError.Location = new System.Drawing.Point(140, 78);
+            this.lblRelativeError.Location = new System.Drawing.Point(140, 90);
             this.lblRelativeError.Name = "lblRelativeError";
-            this.lblRelativeError.Size = new System.Drawing.Size(78, 13);
+            this.lblRelativeError.Size = new System.Drawing.Size(0, 13);
             this.lblRelativeError.TabIndex = 7;
-            this.lblRelativeError.Text = "lblRelativeError";
             // 
             // lblAbsoluteDeltaError
             // 
             this.lblAbsoluteDeltaError.AutoSize = true;
-            this.lblAbsoluteDeltaError.Location = new System.Drawing.Point(207, 101);
+            this.lblAbsoluteDeltaError.Location = new System.Drawing.Point(207, 113);
             this.lblAbsoluteDeltaError.Name = "lblAbsoluteDeltaError";
-            this.lblAbsoluteDeltaError.Size = new System.Drawing.Size(105, 13);
+            this.lblAbsoluteDeltaError.Size = new System.Drawing.Size(0, 13);
             this.lblAbsoluteDeltaError.TabIndex = 8;
-            this.lblAbsoluteDeltaError.Text = "lblAbsoluteDeltaError";
             // 
             // lblRelativeDeltaError
             // 
             this.lblRelativeDeltaError.AutoSize = true;
-            this.lblRelativeDeltaError.Location = new System.Drawing.Point(207, 124);
+            this.lblRelativeDeltaError.Location = new System.Drawing.Point(207, 136);
             this.lblRelativeDeltaError.Name = "lblRelativeDeltaError";
-            this.lblRelativeDeltaError.Size = new System.Drawing.Size(103, 13);
+            this.lblRelativeDeltaError.Size = new System.Drawing.Size(0, 13);
             this.lblRelativeDeltaError.TabIndex = 9;
-            this.lblRelativeDeltaError.Text = "lblRelativeDeltaError";
             // 
             // label6
             // 
@@ -143,24 +140,32 @@
             this.lblElapsedTimeRef.AutoSize = true;
             this.lblElapsedTimeRef.Location = new System.Drawing.Point(67, 27);
             this.lblElapsedTimeRef.Name = "lblElapsedTimeRef";
-            this.lblElapsedTimeRef.Size = new System.Drawing.Size(95, 13);
+            this.lblElapsedTimeRef.Size = new System.Drawing.Size(0, 13);
             this.lblElapsedTimeRef.TabIndex = 13;
-            this.lblElapsedTimeRef.Text = "lblElapsedTimeRef";
             // 
             // lblElapsedTime
             // 
             this.lblElapsedTime.AutoSize = true;
             this.lblElapsedTime.Location = new System.Drawing.Point(245, 27);
             this.lblElapsedTime.Name = "lblElapsedTime";
-            this.lblElapsedTime.Size = new System.Drawing.Size(78, 13);
+            this.lblElapsedTime.Size = new System.Drawing.Size(0, 13);
             this.lblElapsedTime.TabIndex = 14;
-            this.lblElapsedTime.Text = "lblElapsedTime";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(29, 11);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(90, 13);
+            this.label5.TabIndex = 15;
+            this.label5.Text = "Time in seconds :";
             // 
             // frmTestOneTask
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(351, 262);
+            this.ClientSize = new System.Drawing.Size(351, 221);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.lblElapsedTime);
             this.Controls.Add(this.lblElapsedTimeRef);
             this.Controls.Add(this.label7);
@@ -175,7 +180,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.Btn_Go);
             this.Name = "frmTestOneTask";
-            this.Text = "TestApp";
+            this.Text = "Test with one task";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -196,5 +201,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label lblElapsedTimeRef;
         private System.Windows.Forms.Label lblElapsedTime;
+        private System.Windows.Forms.Label label5;
     }
 }
