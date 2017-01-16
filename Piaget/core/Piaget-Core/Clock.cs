@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 
 namespace Piaget_Core {
-    class Clock {
+    public class Clock {
         
         static public readonly double sec = Stopwatch.Frequency;
         static public readonly double ms = sec / 1000.0;

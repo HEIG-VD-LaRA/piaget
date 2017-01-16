@@ -3,14 +3,14 @@ using Piaget_Core.Lib;
 
 namespace Piaget_Core.System {
 
-    class TaskPoolNode : DoubleLinkedNode<TaskPoolNode> {
+    public class TaskPoolNode : DoubleLinkedNode<TaskPoolNode> {
         public Task task;
         public TaskPoolNode(Task task) {
             this.task = task;
         }
     }
 
-    class TaskPool : DoubleLinkedListSorted<TaskPoolNode> {
+    public class TaskPool : DoubleLinkedListSorted<TaskPoolNode> {
         static private Func<TaskPoolNode,long> get_wakeup_time = delegate (TaskPoolNode node) { return node.task.WakeupSWTime; };
         // When running, the task manager needs that there is at least one task in the pool.
         // So when there is no tasks to be executed, null_task will appear in the pool.

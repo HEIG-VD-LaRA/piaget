@@ -1,8 +1,6 @@
 ﻿
-using System;
-
 namespace Piaget_Core.Lib {
-    class DoubleLinkedNode<T_Node> where T_Node : DoubleLinkedNode<T_Node> {
+    public class DoubleLinkedNode<T_Node> where T_Node : DoubleLinkedNode<T_Node> {
         public T_Node previous;
         public T_Node next;
 

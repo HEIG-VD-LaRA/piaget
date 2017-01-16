@@ -3,7 +3,7 @@ using System;
 
 namespace Piaget_Core.Lib {
 
-    class DoubleLinkedListSorted<T_Node> where T_Node : DoubleLinkedNode<T_Node> {
+    public class DoubleLinkedListSorted<T_Node> where T_Node : DoubleLinkedNode<T_Node> {
         private Func<T_Node,long> get_val;
         private T_Node first = null;
 

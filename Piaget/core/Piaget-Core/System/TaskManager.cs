@@ -1,14 +1,14 @@
 ﻿namespace Piaget_Core.System {
 
     // Interface for PiagetJB
-    interface ITasksLauncher {
+    public interface ITasksLauncher {
         void AddParallelTask(string name, WithTasking with_task, double sw_period);
         void Start();
         Clock Clock { get; }
         void TerminateAll();
     }
     // Interface for tasks
-    interface ITaskPoolManager {
+    public interface ITaskPoolManager {
         void AddParallelTask(string name, WithTasking with_task, double sw_period);
         void AddSerialTask(string name, WithTasking with_task, double sw_period, Task parent);
         void Terminate(Task task);
@@ -17,7 +17,7 @@
         void RemoveFromPool(Task task, bool is_hibernated);
     }
 
-    class TaskManager : ITasksLauncher, ITaskPoolManager {
+    public class TaskManager : ITasksLauncher, ITaskPoolManager {
         private TaskPool task_pool;
         private HibernatedTaskPool hibernated_task_pool = new HibernatedTaskPool();
         private Clock clock;
@@ -25,8 +25,8 @@
 
         // METHODS FOR ITaskManager_Launcher, ITaskManager_Tasking ------------------------------------------------
         public void AddParallelTask(string name, WithTasking with_task, double sw_period) {
-            with_task.__NewTask(name, sw_period, (ITaskPoolManager)this, this.clock);
-            this.task_pool.Add((Task)with_task.Task);
+            ((ITaskingManagement)with_task).NewTask(name, sw_period, (ITaskPoolManager)this, this.clock);
+            this.task_pool.Add(((ITaskingManagement)with_task).Task);
         }
 
 
@@ -61,11 +61,11 @@
         // METHODS FOR ITaskManager_Tasking ------------------------------------------------
 
         public void AddSerialTask(string name, WithTasking with_task, double sw_period, Task parent) {
-            with_task.__NewTask(name, sw_period, this, this.clock);
+            ((ITaskingManagement)with_task).NewTask(name, sw_period, this, this.clock);
             // If the user use the same task state to add several serial tasks,
             // only the first one added will be the top one
             if (parent == task_pool.Current.task) {
-                MoveToChildTask((Task)with_task.Task, parent);
+                MoveToChildTask(((ITaskingManagement)with_task).Task, parent);
             }
         }
 
