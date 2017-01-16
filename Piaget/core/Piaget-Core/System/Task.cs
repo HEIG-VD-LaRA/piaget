@@ -16,8 +16,6 @@ namespace Piaget_Core {
         void SetSleep(long time);
         void AddParallelTask(string name, WithTasking task, double sw_period);
         void AddChildTask(string name, WithTasking task, double sw_period);
-        void SetHibernated();
-        void SetRecovered();
         void SetTerminated();
     }
 
@@ -26,7 +24,6 @@ namespace Piaget_Core {
         protected Clock clock;
         private ITaskPoolManager task_manager;
         private long wakeup_sw_time;
-        private bool is_hibernated;
 
         private Action state_action_proc;
         private Func<Yieldable> state_yieldable_proc;
@@ -48,7 +45,6 @@ namespace Piaget_Core {
             this.sw_period = (long)sw_period;
             this.clock = clock;
             this.task_manager = task_manager;
-            this.is_hibernated = false;
             ResetWakeupTime();
         }
         
@@ -109,19 +105,8 @@ namespace Piaget_Core {
             this.task_manager.AddSerialTask(name, task, period, this);
         }
 
-        public void SetHibernated() {
-            this.is_hibernated = true;
-            task_manager.Hibernate(this);
-        }
-
-        public void SetRecovered() {
-            this.is_hibernated = false;
-            this.wakeup_sw_time = this.clock.ElapsedSWTime;
-            task_manager.Recover(this);
-        }
-
         public void SetTerminated() {
-            this.task_manager.RemoveFromPool(this, this.is_hibernated);
+            this.task_manager.RemoveFromPool(this);
         }
     }
 }

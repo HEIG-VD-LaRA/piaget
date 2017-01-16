@@ -12,14 +12,11 @@
         void AddParallelTask(string name, WithTasking with_task, double sw_period);
         void AddSerialTask(string name, WithTasking with_task, double sw_period, Task parent);
         void Terminate(Task task);
-        void Hibernate(Task task);
-        void Recover(Task task);
-        void RemoveFromPool(Task task, bool is_hibernated);
+        void RemoveFromPool(Task task);
     }
 
     public class TaskManager : ITasksLauncher, ITaskPoolManager {
         private TaskPool task_pool;
-        private HibernatedTaskPool hibernated_task_pool = new HibernatedTaskPool();
         private Clock clock;
 
 
@@ -72,27 +69,8 @@
             task.SetTerminated();
         }
 
-        public void Hibernate(Task task) {
-            TaskPoolNode task_pool_node = this.task_pool.Find(task);
-            this.task_pool.Remove(task_pool_node);
-            this.hibernated_task_pool.Add(task_pool_node);
-        }
-
-        public void Recover(Task task) {
-            TaskPoolNode task_pool_node = this.hibernated_task_pool.Find(task);
-            this.hibernated_task_pool.Remove(task_pool_node);
-            task.ResetWakeupTime();
-            this.task_pool.Add(task_pool_node);
-        }
-
-        public void RemoveFromPool(Task task, bool is_hibernated) {
-            TaskPoolNode task_pool_node;
-            if (is_hibernated) {
-                task_pool_node = this.hibernated_task_pool.Find(task);
-                this.hibernated_task_pool.Remove(this.task_pool.Find(task));
-            } else {
-                this.task_pool.Remove(task);
-            }
+        public void RemoveFromPool(Task task) {
+            this.task_pool.Remove(task);
         }
 
 

@@ -68,20 +68,11 @@ namespace Piaget_Core.System {
         }
 
         public TaskPoolNode Find(Task node) {
-            while (true) { // Loop thru all the serial task list in which node belongs
-                TaskPoolNode current = this.First;
-                while (true) { // Loop thru all the pool
-                    if (current.task == node) {
-                        return current;
-                    }
-                    current = current.next;
-                    if (current == this.First) { // Did we loop thru all the pool without finding the current node ?
-                        // Then we will try with the next node on the serial task list
-                        break;
-                    }
-                }
-                node = node.next;
+            TaskPoolNode current = this.First;
+            while (current.task != node) { // Loop thru all the pool
+                current = current.next;
             }
+            return current;
         }
 
         public void MoveNext() {

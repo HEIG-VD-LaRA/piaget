@@ -15,7 +15,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Lib\DoubleLinkedListSorted.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Lib\DoubleLinkedNode.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PiagetJB.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)System\HibernatedTaskPool.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)System\Task.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)System\TaskManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)System\TaskPool.cs" />
