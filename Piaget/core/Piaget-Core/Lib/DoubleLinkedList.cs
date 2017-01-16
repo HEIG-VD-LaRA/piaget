@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace Piaget_Core.Lib {
-    class DoubleLinkedList<T_Node> where T_Node : DoubleLinkedNode<T_Node> {
+    public class DoubleLinkedList<T_Node> where T_Node : DoubleLinkedNode<T_Node> {
         private T_Node first = null;
 
         protected T_Node First {

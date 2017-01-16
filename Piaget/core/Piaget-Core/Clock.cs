@@ -6,8 +6,7 @@ namespace Piaget_Core {
         static public readonly double sec = Stopwatch.Frequency;
         static public readonly double ms = sec / 1000.0;
         static public readonly double us = ms / 1000.0;
-
-        private long elapsed_sw_time = 0;
+        
         private Stopwatch stopwatch = new Stopwatch();
 
         public void Start() {
@@ -24,18 +23,14 @@ namespace Piaget_Core {
 
         public double ElapsedTime {
             get {
-                return ToRealTime(this.elapsed_sw_time);
+                return ToRealTime(this.ElapsedSWTime);
             }
         }
 
         public long ElapsedSWTime {
             get {
-                return this.elapsed_sw_time;
+                return stopwatch.ElapsedTicks;
             }
-        }
-
-        public void UpdateElapsedTime() {
-            this.elapsed_sw_time = stopwatch.ElapsedTicks;
         }
     }
 }

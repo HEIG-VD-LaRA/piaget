@@ -3,7 +3,7 @@
 using Piaget_Core.System;
 
 namespace Piaget_Core {
-    class PiagetJB {
+    public class PiagetJB {
         private Thread task_manager_thread;
         private ITasksLauncher task_manager;
         public long ElapsedSWTime {

@@ -9,13 +9,13 @@ namespace Piaget_Core {
 
     public interface ITask {
         string Name { get; }
-        double Period { get; }
+        double SWPeriod { get; }
         //
         void SetState(Action state_action_proc);
         void SetState(Func<Yieldable> state_yieldable_proc, int dummy = 0); // See comment below for the dummy parameter
         void SetSleep(long time);
-        void AddParallelTask(string name, WithTasking task, long period);
-        void AddChildTask(string name, WithTasking task, long period);
+        void AddParallelTask(string name, WithTasking task, double sw_period);
+        void AddChildTask(string name, WithTasking task, double sw_period);
         void SetHibernated();
         void SetRecovered();
         void SetTerminated();
@@ -33,9 +33,9 @@ namespace Piaget_Core {
         private Yieldable state_current_exec;
 
         public long sw_period;
-        public double Period {
+        public double SWPeriod {
             get {
-                return (double)this.sw_period / (double)Clock.sec;
+                return (double)this.sw_period;
             }
         }
 
@@ -98,11 +98,11 @@ namespace Piaget_Core {
             }
         }
 
-        public void AddParallelTask (string name, WithTasking task, long period) {
+        public void AddParallelTask (string name, WithTasking task, double period) {
             this.task_manager.AddParallelTask(name, task, period);
         }
 
-        public void AddChildTask(string name, WithTasking task, long period) {
+        public void AddChildTask(string name, WithTasking task, double period) {
             this.task_manager.AddSerialTask(name, task, period, this);
         }
 

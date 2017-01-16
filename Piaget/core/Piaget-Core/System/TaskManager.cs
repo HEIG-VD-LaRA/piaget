@@ -42,9 +42,8 @@
             // Start multitasking
             this.clock.Start();
             while (true) {
-                this.task_pool.Current.task.Sleep();
                 this.task_pool.Current.task.Exec();
-                this.clock.UpdateElapsedTime();
+                this.task_pool.Current.task.Sleep();
                 this.task_pool.MoveNext();
             }
         }
