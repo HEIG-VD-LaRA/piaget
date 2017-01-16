@@ -91,8 +91,7 @@
                 task_pool_node = this.hibernated_task_pool.Find(task);
                 this.hibernated_task_pool.Remove(this.task_pool.Find(task));
             } else {
-                task_pool_node = this.task_pool.Find(task);
-                this.task_pool.Remove(this.task_pool.Find(task));
+                this.task_pool.Remove(task);
             }
         }
 

@@ -83,14 +83,6 @@ namespace Piaget_Core.System {
             }
         }
 
-        public void Hibernate(Task node) {
-            Hibernate(Find(node));
-        }
-
-        public void Hibernate(TaskPoolNode serial_task_list) {
-            this.Remove(serial_task_list);
-        }
-
         public void MoveNext() {
             // At this point, the Current task is the task that was lastly executed and the tasks list
             // need to be wandered so that the Current task can be moved in the right place in the list,
