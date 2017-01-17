@@ -14,12 +14,6 @@ namespace TestOneApp {
 
         public frmTestOneTask() {
             InitializeComponent();
-            // Easy but unsafe solution for allowing cross-thread operations on the controls of the form
-            // This is needed as the callback functions that modify controls of the form are called with a
-            // different thread as the thread that created the form. If a safe solution is required, use
-            // BackgroundWorker
-            Form.CheckForIllegalCrossThreadCalls = false;
-            //
         }
 
         private void btnGo_Click(object sender, EventArgs e) {
@@ -41,12 +35,14 @@ namespace TestOneApp {
 
         private void UpdateForm() {
             while (true) {
-                lblElapsedTimeRef.Text = this.elapsed_time_ref.ToString();
-                lblElapsedTime.Text = this.piaget.ElapsedTime.ToString();
-                lblAbsoluteError.Text = (1000.0 * this.absolute_error).ToString();
-                lblRelativeError.Text = (100 * this.relative_error).ToString();
-                lblAbsoluteDeltaError.Text = (1000.0 * this.absolute_delta_error).ToString();
-                lblRelativeDeltaError.Text = (100 * this.relative_delta_error).ToString();
+                this.Invoke(() => {
+                    this.lblElapsedTimeRef.Text = this.elapsed_time_ref.ToString();
+                    this.lblElapsedTime.Text = this.piaget.ElapsedTime.ToString();
+                    this.lblAbsoluteError.Text = (1000.0 * this.absolute_error).ToString();
+                    this.lblRelativeError.Text = (100 * this.relative_error).ToString();
+                    this.lblAbsoluteDeltaError.Text = (1000.0 * this.absolute_delta_error).ToString();
+                    this.lblRelativeDeltaError.Text = (100 * this.relative_delta_error).ToString();
+                } );
                 Thread.Sleep(100);
             }
         }

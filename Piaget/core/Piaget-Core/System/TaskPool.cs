@@ -4,8 +4,8 @@ using Piaget_Core.Lib;
 namespace Piaget_Core.System {
 
     public class TaskPoolNode : DoubleLinkedNode<TaskPoolNode> {
-        public Task task;
-        public TaskPoolNode(Task task) {
+        public PiagetTask task;
+        public TaskPoolNode(PiagetTask task) {
             this.task = task;
         }
     }
@@ -14,7 +14,7 @@ namespace Piaget_Core.System {
         static private Func<TaskPoolNode,long> get_wakeup_time = delegate (TaskPoolNode node) { return node.task.WakeupSWTime; };
         // When running, the task manager needs that there is at least one task in the pool.
         // So when there is no tasks to be executed, null_task will appear in the pool.
-        private readonly Task null_task = new Task();
+        private readonly PiagetTask null_task = new PiagetTask();
         private readonly long null_task_period = (long)(100.0 * Clock.ms);
 
         public TaskPoolNode Current {
@@ -34,7 +34,7 @@ namespace Piaget_Core.System {
             Current.task = this.null_task;
         }
 
-        public void Add(Task task) {
+        public void Add(PiagetTask task) {
             if (Current.task == this.null_task) { // First task to be added ?
                 Current.task = task;
             } else {
@@ -51,14 +51,14 @@ namespace Piaget_Core.System {
             }
         }
 
-        public void Remove(Task task) {
+        public void Remove(PiagetTask task) {
             TaskPoolNode executing_task_pool_node = Find(task);
             if (task == task.next) { // No other tasks in the same task pool node ?
                 Remove(executing_task_pool_node);
             } else { // Remove the task from the current task pool node
-                Task old_executing_task = executing_task_pool_node.task;
-                Task new_executing_task = task.previous;
-                Task bottom_task = old_executing_task.next;
+                PiagetTask old_executing_task = executing_task_pool_node.task;
+                PiagetTask new_executing_task = task.previous;
+                PiagetTask bottom_task = old_executing_task.next;
 
                 new_executing_task.next = bottom_task;
                 bottom_task.previous = new_executing_task;
@@ -67,7 +67,7 @@ namespace Piaget_Core.System {
             }
         }
 
-        public TaskPoolNode Find(Task node) {
+        public TaskPoolNode Find(PiagetTask node) {
             TaskPoolNode current = this.First;
             while (current.task != node) { // Loop thru all the pool
                 current = current.next;

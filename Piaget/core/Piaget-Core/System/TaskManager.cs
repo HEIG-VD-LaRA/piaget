@@ -1,4 +1,6 @@
-﻿namespace Piaget_Core.System {
+﻿using System.Threading.Tasks;
+
+namespace Piaget_Core.System {
 
     // Interface for PiagetJB
     public interface ITasksLauncher {
@@ -10,9 +12,9 @@
     // Interface for tasks
     public interface ITaskPoolManager {
         void AddParallelTask(string name, WithTasking with_task, double sw_period);
-        void AddSerialTask(string name, WithTasking with_task, double sw_period, Task parent);
-        void Terminate(Task task);
-        void RemoveFromPool(Task task);
+        void AddSerialTask(string name, WithTasking with_task, double sw_period, PiagetTask parent);
+        void Terminate(PiagetTask task);
+        void RemoveFromPool(PiagetTask task);
     }
 
     public class TaskManager : ITasksLauncher, ITaskPoolManager {
@@ -56,7 +58,7 @@
 
         // METHODS FOR ITaskManager_Tasking ------------------------------------------------
 
-        public void AddSerialTask(string name, WithTasking with_task, double sw_period, Task parent) {
+        public void AddSerialTask(string name, WithTasking with_task, double sw_period, PiagetTask parent) {
             ((ITaskingManagement)with_task).NewTask(name, sw_period, this, this.clock);
             // If the user use the same task state to add several serial tasks,
             // only the first one added will be the top one
@@ -65,11 +67,11 @@
             }
         }
 
-        public void Terminate(Task task) {
+        public void Terminate(PiagetTask task) {
             task.SetTerminated();
         }
 
-        public void RemoveFromPool(Task task) {
+        public void RemoveFromPool(PiagetTask task) {
             this.task_pool.Remove(task);
         }
 
@@ -81,7 +83,7 @@
             // TO BE IMPLEMENTED
         }
 
-        private void MoveToChildTask(Task new_task, Task parent) {
+        private void MoveToChildTask(PiagetTask new_task, PiagetTask parent) {
             new_task.InsertAfter(parent);
             task_pool.Current.task = new_task;
         }

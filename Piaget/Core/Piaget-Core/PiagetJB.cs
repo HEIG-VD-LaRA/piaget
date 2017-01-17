@@ -1,6 +1,8 @@
-﻿using System.Threading;
+﻿using System.Threading.Tasks;
 
 using Piaget_Core.System;
+using System.Windows.Forms;
+using System.Threading;
 
 namespace Piaget_Core {
     public class PiagetJB {
@@ -13,7 +15,7 @@ namespace Piaget_Core {
             get { return this.task_manager.Clock.ElapsedTime; }
         }
 
-        public PiagetJB () {
+        public PiagetJB() {
             task_manager = (ITasksLauncher)new TaskManager();
         }
 
@@ -29,6 +31,5 @@ namespace Piaget_Core {
         public void Stop() {
             task_manager.TerminateAll();
         }
-
     }
 }

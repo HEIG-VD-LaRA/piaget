@@ -10,21 +10,17 @@ namespace TestChildTask {
 
         public frmTestChildTask() {
             InitializeComponent();
-            // Easy but unsafe solution for allowing cross-thread operations on the controls of the form
-            // This is needed as the callback functions that modify controls of the form are called with a
-            // different thread as the thread that created the form. If a safe solution is required, use
-            // BackgroundWorker
-            Form.CheckForIllegalCrossThreadCalls = false;
-            //
         }
 
         private void FormUpdate_Callback(string message) {
-            this.tbMessages.AppendText(message + NewLine);
+            this.Invoke(() => this.tbMessages.AppendText(message + NewLine));
         }
 
         private void Done_Callback() {
-            this.tbMessages.AppendText("---- DONE ----" + NewLine);
-            this.btnGo.Text = "Go";
+            this.Invoke(() => {
+                this.tbMessages.AppendText("---- DONE ----" + NewLine);
+                this.btnGo.Text = "Go";
+            });
             this.piaget.Stop();
         }
 

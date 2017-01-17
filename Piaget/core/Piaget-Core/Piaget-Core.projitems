@@ -14,6 +14,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Lib\DoubleLinkedList.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Lib\DoubleLinkedListSorted.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Lib\DoubleLinkedNode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Lib\ExtensionsToCSharp.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PiagetJB.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)System\Task.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)System\TaskManager.cs" />

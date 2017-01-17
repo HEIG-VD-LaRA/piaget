@@ -16,12 +16,6 @@ namespace PerformanceTest {
 
         public frmPerformanceTest() {
             InitializeComponent();
-            // Easy but unsafe solution for allowing cross-thread operations on the controls of the form
-            // This is needed as the callback functions that modify controls of the form are called with a
-            // different thread as the thread that created the form. If a safe solution is required, use
-            // BackgroundWorker
-            Form.CheckForIllegalCrossThreadCalls = false;
-            //
         }
 
         private void btnGo_Click(object sender, EventArgs e) {
@@ -58,9 +52,11 @@ namespace PerformanceTest {
 
         private void PrepareForOneMoreTask(long elapsed_sw_time) {
             double T_tasks = (double)elapsed_sw_time / (double)this.N_cycles;
-            tbMeasures.AppendText("n = " + this.n_tasks.ToString() + " : " + TimeMeasurement.TimeFormat(T_tasks) +
-                                  " (" + TimeMeasurement.TimeFormat(T_tasks / this.n_tasks) + " per task execution)" + 
-                                  NewLine);
+            this.Invoke(() => {
+                tbMeasures.AppendText("n = " + this.n_tasks.ToString() + " : " + TimeMeasurement.TimeFormat(T_tasks) +
+                                      " (" + TimeMeasurement.TimeFormat(T_tasks / this.n_tasks) + " per task execution)" +
+                                      NewLine);
+            } );
             this.n_tasks++;
             this.N_cycles = N_Cycles_0 / n_tasks;
         }

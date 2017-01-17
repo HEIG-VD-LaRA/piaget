@@ -7,7 +7,7 @@ using Piaget_Core.System;
 
 namespace Piaget_Core {
 
-    public interface ITask {
+    public interface IPiagetTask {
         string Name { get; }
         double SWPeriod { get; }
         //
@@ -19,7 +19,7 @@ namespace Piaget_Core {
         void SetTerminated();
     }
 
-    public class Task : DoubleLinkedNode<Task>, ITask {
+    public class PiagetTask : DoubleLinkedNode<PiagetTask>, IPiagetTask {
         private string name;
         protected Clock clock;
         private ITaskPoolManager task_manager;
