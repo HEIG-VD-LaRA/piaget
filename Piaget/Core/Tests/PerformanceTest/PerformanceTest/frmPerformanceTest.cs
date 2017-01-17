@@ -3,7 +3,6 @@ using System;
 using static System.Environment; // for NewLine
 
 using Piaget_Core;
-using Lib4Testing;
 
 namespace PerformanceTest {
     public partial class frmPerformanceTest : Form {
@@ -53,8 +52,8 @@ namespace PerformanceTest {
         private void PrepareForOneMoreTask(long elapsed_sw_time) {
             double T_tasks = (double)elapsed_sw_time / (double)this.N_cycles;
             this.Invoke(() => {
-                tbMeasures.AppendText("n = " + this.n_tasks.ToString() + " : " + TimeMeasurement.TimeFormat(T_tasks) +
-                                      " (" + TimeMeasurement.TimeFormat(T_tasks / this.n_tasks) + " per task execution)" +
+                tbMeasures.AppendText("n = " + this.n_tasks.ToString() + " : " + Clock.TimeFormat(T_tasks) +
+                                      " (" + Clock.TimeFormat(T_tasks / this.n_tasks) + " per task execution)" +
                                       NewLine);
             } );
             this.n_tasks++;

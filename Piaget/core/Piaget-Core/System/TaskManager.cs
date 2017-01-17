@@ -12,7 +12,7 @@ namespace Piaget_Core.System {
     // Interface for tasks
     public interface ITaskPoolManager {
         void AddParallelTask(string name, WithTasking with_task, double sw_period);
-        void AddSerialTask(string name, WithTasking with_task, double sw_period, PiagetTask parent);
+        void AddChildTask(string name, WithTasking with_task, double sw_period, PiagetTask parent);
         void Terminate(PiagetTask task);
         void RemoveFromPool(PiagetTask task);
     }
@@ -41,8 +41,8 @@ namespace Piaget_Core.System {
             // Start multitasking
             this.clock.Start();
             while (true) {
-                this.task_pool.Current.task.Exec();
                 this.task_pool.Current.task.Sleep();
+                this.task_pool.Current.task.Exec();
                 this.task_pool.MoveNext();
             }
         }
@@ -58,9 +58,9 @@ namespace Piaget_Core.System {
 
         // METHODS FOR ITaskManager_Tasking ------------------------------------------------
 
-        public void AddSerialTask(string name, WithTasking with_task, double sw_period, PiagetTask parent) {
+        public void AddChildTask(string name, WithTasking with_task, double sw_period, PiagetTask parent) {
             ((ITaskingManagement)with_task).NewTask(name, sw_period, this, this.clock);
-            // If the user use the same task state to add several serial tasks,
+            // If the user use the same task state to add several child tasks,
             // only the first one added will be the top one
             if (parent == task_pool.Current.task) {
                 MoveToChildTask(((ITaskingManagement)with_task).Task, parent);

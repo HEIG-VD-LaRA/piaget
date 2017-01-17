@@ -16,10 +16,6 @@ namespace Piaget_Core.Lib {
             this.get_val = get_val;
         }
 
-        public long Min() {
-            return get_val(this.first);
-        }
-
         public void Add(T_Node node) {
             if (this.first == null) {
                 this.first = node;
@@ -46,10 +42,6 @@ namespace Piaget_Core.Lib {
             Remove<T_Node>(node, delegate (T_Node current) { return current != node; });
         }
 
-        public void Remove(long val) {
-            Remove<long>(val, delegate (T_Node current) { return get_val(current) != val; });
-        }
-
         public void Remove<T_Obj>(T_Obj obj, Func<T_Node,bool> false_condition) {
             T_Node current = this.first;
             while (false_condition(current)) {
@@ -63,6 +55,7 @@ namespace Piaget_Core.Lib {
                 first = first.next;
             }
             current.previous.next = current.next;
+            current.next.previous = current.previous;
         }
     }
 }

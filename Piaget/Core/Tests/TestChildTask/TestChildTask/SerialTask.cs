@@ -16,7 +16,7 @@ namespace TestChildTask {
         }
 
         protected override void Reset() {
-            // this.update_form_callback(this.Task.Name + " : ! Reset !");
+            this.update_form_callback(this.Task.Name + " : ! RESET !");
             this.Task.SetState(FirstState);
         }
 

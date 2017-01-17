@@ -40,19 +40,17 @@ namespace Piaget_Core {
             get { return this.wakeup_sw_time; }
         }
 
-        public void Init(string name, double sw_period, ITaskPoolManager task_manager, Clock clock) {
+        public void Init(string name, double sw_period, ITaskPoolManager task_manager, Clock clock, Action user_reset) {
             this.name = name;
             this.sw_period = (long)sw_period;
             this.clock = clock;
             this.task_manager = task_manager;
             ResetWakeupTime();
+            user_reset();
         }
         
-        public void ResetWakeupTime(bool after_child_task_done = false) {
-            this.wakeup_sw_time = clock.ElapsedSWTime;
-            if (after_child_task_done) {
-                this.wakeup_sw_time += this.sw_period;
-            }
+        public void ResetWakeupTime() {
+            this.wakeup_sw_time = clock.ElapsedSWTime + this.sw_period;
         }
 
         public string Name {
@@ -102,7 +100,7 @@ namespace Piaget_Core {
         }
 
         public void AddChildTask(string name, WithTasking task, double period) {
-            this.task_manager.AddSerialTask(name, task, period, this);
+            this.task_manager.AddChildTask(name, task, period, this);
         }
 
         public void SetTerminated() {

@@ -25,8 +25,7 @@ namespace Piaget_Core {
 
         void ITaskingManagement.NewTask(string name, double period, ITaskPoolManager task_manager, Clock clock) {
             this.task = new PiagetTask();
-            this.task.Init(name, period, task_manager, clock);
-            this.task.SetState(Reset);
+            this.task.Init(name, period, task_manager, clock, Reset);
         }
 
     }

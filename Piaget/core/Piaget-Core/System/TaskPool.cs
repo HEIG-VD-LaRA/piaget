@@ -11,7 +11,7 @@ namespace Piaget_Core.System {
     }
 
     public class TaskPool : DoubleLinkedListSorted<TaskPoolNode> {
-        static private Func<TaskPoolNode,long> get_wakeup_time = delegate (TaskPoolNode node) { return node.task.WakeupSWTime; };
+        //
         // When running, the task manager needs that there is at least one task in the pool.
         // So when there is no tasks to be executed, null_task will appear in the pool.
         private readonly PiagetTask null_task = new PiagetTask();
@@ -22,8 +22,9 @@ namespace Piaget_Core.System {
             set { this.First = value; }
         }
 
+        static private Func<TaskPoolNode, long> get_wakeup_time = delegate (TaskPoolNode node) { return node.task.WakeupSWTime; };
         public TaskPool(Clock clock) : base(get_wakeup_time) {
-            this.null_task.Init("Null task", null_task_period, null, clock);
+            this.null_task.Init("Null task", null_task_period, null, clock, () => { });
             this.null_task.SetState(() => { }); // void procedure to be executed
             Add(new TaskPoolNode(this.null_task));
         }
@@ -53,17 +54,17 @@ namespace Piaget_Core.System {
 
         public void Remove(PiagetTask task) {
             TaskPoolNode executing_task_pool_node = Find(task);
-            if (task == task.next) { // No other tasks in the same task pool node ?
+            if (task == task.next) { // No other tasks in the same task pool node ? (which means that the task isn't the child of another task)
                 Remove(executing_task_pool_node);
-            } else { // Remove the task from the current task pool node
-                PiagetTask old_executing_task = executing_task_pool_node.task;
-                PiagetTask new_executing_task = task.previous;
-                PiagetTask bottom_task = old_executing_task.next;
-
-                new_executing_task.next = bottom_task;
-                bottom_task.previous = new_executing_task;
-                executing_task_pool_node.task = new_executing_task;
-                new_executing_task.ResetWakeupTime(true);
+            } else { // Remove the task from the current task pool node, so that the task manager can switch to its parent task
+                PiagetTask child_task = executing_task_pool_node.task;
+                PiagetTask parent_task = task.previous;
+                PiagetTask bottom_task = child_task.next;
+                parent_task.next = bottom_task;
+                bottom_task.previous = parent_task;
+                executing_task_pool_node.task = parent_task;
+                // As the parent task is now activated, its wake-up time needs to be updated with regards to the current time
+                parent_task.ResetWakeupTime();
             }
         }
 
@@ -85,7 +86,7 @@ namespace Piaget_Core.System {
                 // If the next execution of the current task is scheduled later as the current element of the list,
                 // Then we know that the current task will be moved after the current element (but not necessarly
                 // right after), so we move to the next element of the list and do this check again
-                if (get_wakeup_time(Current) > get_wakeup_time(next_task_pool_node)) {
+                if (Current.task.WakeupSWTime > next_task_pool_node.task.WakeupSWTime) {
                     next_task_pool_node = next_task_pool_node.next;
                 // Otherwise we have found where the current task has to be in the list
                 } else {

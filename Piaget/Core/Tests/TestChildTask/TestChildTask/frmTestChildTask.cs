@@ -32,7 +32,7 @@ namespace TestChildTask {
                 this.piaget.AddParallelTask("Task level 0",
                                             new SerialTask(0, (int)nbMaxLevel.Value, 
                                                            FormUpdate_Callback, Done_Callback), 
-                                            0.5 * Clock.sec);
+                                            1.0 * Clock.sec);
                 this.piaget.Start();
             } else {
                 this.btnGo.Text = "Go";

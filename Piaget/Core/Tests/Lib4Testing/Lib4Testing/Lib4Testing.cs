@@ -55,7 +55,6 @@ namespace Lib4Testing {
     }
 
     class TimeMeasurement {
-        enum Units { sec, ms, us, ns };
         private ErrorValue time_error;
         private double period;
         private int n_cycles;
@@ -77,16 +76,6 @@ namespace Lib4Testing {
                                      mesured_value: (double)this.n_cycles * period);
             }
             return time_error;
-        }
-
-        static public string TimeFormat(double sw_time) {
-            double real_time = sw_time / (double)Clock.sec;
-            Units units = Units.sec;
-            while (real_time < 1.0) {
-                real_time *= 1000.0;
-                units++;
-            }
-            return (Math.Truncate(real_time * 100.0) / 100.0).ToString() + " " + units.ToString();
         }
     }
 }
