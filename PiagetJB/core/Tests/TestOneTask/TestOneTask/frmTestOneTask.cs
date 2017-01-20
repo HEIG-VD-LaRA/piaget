@@ -7,7 +7,7 @@ using Lib4Testing;
 namespace TestOneApp {
     public partial class frmTestOneTask : Form {
         private Thread update_thread;
-        private PiagetJB piaget;
+        private Piaget piaget;
         private double elapsed_time_ref;
         private double absolute_error, absolute_delta_error;
         private double relative_error, relative_delta_error;
@@ -17,8 +17,8 @@ namespace TestOneApp {
         }
 
         private void btnGo_Click(object sender, EventArgs e) {
-            this.piaget = new PiagetJB();
-            this.piaget.AddParallelTask("The task !", new SingleTask(UpdateMeasure), 50.0 * Clock.us);
+            this.piaget = new Piaget(this);
+            this.piaget.AddParallelTask("The task !", new SingleTask(UpdateMeasure), 50.0 * Time.us);
             this.piaget.Start();
 
             this.update_thread = new Thread(UpdateForm);
@@ -36,8 +36,8 @@ namespace TestOneApp {
         private void UpdateForm() {
             while (true) {
                 this.Invoke(() => {
-                    this.lblElapsedTimeRef.Text = this.elapsed_time_ref.ToString();
-                    this.lblElapsedTime.Text = this.piaget.ElapsedTime.ToString();
+                    this.lblElapsedTimeRef.Text = Time.Format(this.elapsed_time_ref);
+                    this.lblElapsedTime.Text = this.piaget.ApplicationElapsedTimeFormatted;
                     this.lblAbsoluteError.Text = (1000.0 * this.absolute_error).ToString();
                     this.lblRelativeError.Text = (100 * this.relative_error).ToString();
                     this.lblAbsoluteDeltaError.Text = (1000.0 * this.absolute_delta_error).ToString();

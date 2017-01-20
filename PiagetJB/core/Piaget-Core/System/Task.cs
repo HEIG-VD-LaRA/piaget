@@ -19,7 +19,7 @@ namespace Piaget_Core.System {
     }
 
     public class PiagetTask : DoubleLinkedNode<PiagetTask>, IPiagetTask {
-
+        
         protected Clock clock;
         private ITaskPoolManager task_manager;
 
@@ -41,7 +41,7 @@ namespace Piaget_Core.System {
         public long WakeupSWTime {
             get { return this.wakeup_sw_time; }
         }
-
+        // (name, period, clock, Reset, task_manager, sync_task)
         public void Init(string name, double period, Clock clock, Action user_reset,
                          ITaskPoolManager task_manager) {
             this.name = name;
@@ -92,7 +92,7 @@ namespace Piaget_Core.System {
             }
         }
 
-        public void AddParallelTask(string name, WithTasking task, double period) {
+        public void AddParallelTask (string name, WithTasking task, double period) {
             this.task_manager.AddParallelTask(name, task, period);
         }
 

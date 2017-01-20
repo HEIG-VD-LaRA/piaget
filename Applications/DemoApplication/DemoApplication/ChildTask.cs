@@ -25,7 +25,7 @@ namespace DemoApplication {
             this.append_message_callback(this.Task.Name + " : State_2");
             this.Task.AddParallelTask(this.n_loops + ".Parallel task", 
                                       new ParallelTask(this.n_loops, this.append_message_callback), 
-                                      1.0 * Clock.sec);
+                                      1.0 * Time.sec);
             this.Task.SetState(LastState);
         }
 

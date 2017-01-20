@@ -26,7 +26,7 @@ namespace DemoApplication {
             this.append_message_callback(this.task_id + " : State_2");
             this.Task.AddChildTask(this.n_loops + ".Child task", 
                                    new ChildTask(this.n_loops, this.append_message_callback), 
-                                   1.0 * Clock.sec);
+                                   1.0 * Time.sec);
             this.Task.SetState(LastState);
         }
 

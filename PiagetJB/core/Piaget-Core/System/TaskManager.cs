@@ -1,13 +1,12 @@
-﻿using System.Threading.Tasks;
-
+﻿
 namespace Piaget_Core.System {
 
     // Interface for PiagetJB
     public interface ITasksLauncher {
         void AddParallelTask(string name, WithTasking with_task, double sw_period);
         void Start();
-        Clock Clock { get; }
         void TerminateAll();
+        Clock Clock { get; }
     }
     // Interface for tasks
     public interface ITaskPoolManager {
@@ -21,13 +20,12 @@ namespace Piaget_Core.System {
         private TaskPool task_pool;
         private Clock clock;
 
-
         // METHODS FOR ITaskManager_Launcher, ITaskManager_Tasking ------------------------------------------------
         public void AddParallelTask(string name, WithTasking with_task, double sw_period) {
-            ((ITaskingManagement)with_task).NewTask(name, sw_period, this.clock, (ITaskPoolManager)this);
+            ((ITaskingManagement)with_task).NewTask(name, sw_period, this.clock, 
+                                                    (ITaskPoolManager)this);
             this.task_pool.Add(((ITaskingManagement)with_task).Task);
         }
-
 
         // METHODS FOR ITaskManager_Launcher ------------------------------------------------
 
@@ -37,7 +35,6 @@ namespace Piaget_Core.System {
         }
 
         public void Start() {
-            AddSystemTasks();
             // Start multitasking
             this.clock.Start();
             while (true) {
@@ -46,11 +43,11 @@ namespace Piaget_Core.System {
                 this.task_pool.MoveNext();
             }
         }
-
+        
         public Clock Clock {
             get { return this.clock; }
         }
-
+        
         public void TerminateAll() {
             this.task_pool.Reset();
         }
@@ -59,7 +56,8 @@ namespace Piaget_Core.System {
         // METHODS FOR ITaskManager_Tasking ------------------------------------------------
 
         public void AddChildTask(string name, WithTasking with_task, double sw_period, PiagetTask parent) {
-            ((ITaskingManagement)with_task).NewTask(name, sw_period, this.clock, this);
+            ((ITaskingManagement)with_task).NewTask(name, sw_period, this.clock, 
+                                                    (ITaskPoolManager)this);
             // If the user use the same task state to add several child tasks,
             // only the first one added will be the top one
             if (parent == task_pool.Current.task) {
@@ -78,14 +76,10 @@ namespace Piaget_Core.System {
 
         // PRIVATE METHODS ------------------------------------------------
 
-        // Tasks that exist in every Piaget applications
-        private void AddSystemTasks() {
-            // TO BE IMPLEMENTED
-        }
-
         private void MoveToChildTask(PiagetTask new_task, PiagetTask parent) {
             new_task.InsertAfter(parent);
             task_pool.Current.task = new_task;
         }
+
     }
 }

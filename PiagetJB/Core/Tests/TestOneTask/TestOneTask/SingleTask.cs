@@ -16,7 +16,7 @@ namespace TestOneApp {
 
         protected override void Reset() {
             n_cycle = 0;
-            time_measurement = new TimeMeasurement(this.Task.SWPeriod / Clock.sec);
+            time_measurement = new TimeMeasurement(this.Task.SWPeriod / Time.sec);
             this.Task.SetState(A);
         }
 

@@ -36,7 +36,7 @@ namespace PerformanceTest {
 
         private void Restart() {
             this.n_done_tasks = 0;
-            this.piaget = new Piaget();
+            this.piaget = new Piaget(this);
             for (int i = 1; i <= n_tasks; i++ ) {
                 // We want to make sure that no (or as less as possible) sleep occur as it is a performance test. 
                 // Therefore the task cycle is set to 1.0 which corresponds to the resolution of the clock (stopwatch)
@@ -55,7 +55,7 @@ namespace PerformanceTest {
                 tbMeasures.AppendText("n = " + this.n_tasks.ToString() + " : " + Time.Format(T_tasks) +
                                       " (" + Time.Format(T_tasks / this.n_tasks) + " per task execution)" +
                                       NewLine);
-            });
+            } );
             this.n_tasks++;
             this.N_cycles = N_Cycles_0 / n_tasks;
         }
