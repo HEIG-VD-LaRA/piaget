@@ -24,7 +24,7 @@ namespace Piaget_Core.System {
 
         // METHODS FOR ITaskManager_Launcher, ITaskManager_Tasking ------------------------------------------------
         public void AddParallelTask(string name, WithTasking with_task, double sw_period) {
-            ((ITaskingManagement)with_task).NewTask(name, sw_period, (ITaskPoolManager)this, this.clock);
+            ((ITaskingManagement)with_task).NewTask(name, sw_period, this.clock, (ITaskPoolManager)this);
             this.task_pool.Add(((ITaskingManagement)with_task).Task);
         }
 
@@ -59,7 +59,7 @@ namespace Piaget_Core.System {
         // METHODS FOR ITaskManager_Tasking ------------------------------------------------
 
         public void AddChildTask(string name, WithTasking with_task, double sw_period, PiagetTask parent) {
-            ((ITaskingManagement)with_task).NewTask(name, sw_period, this, this.clock);
+            ((ITaskingManagement)with_task).NewTask(name, sw_period, this.clock, this);
             // If the user use the same task state to add several child tasks,
             // only the first one added will be the top one
             if (parent == task_pool.Current.task) {

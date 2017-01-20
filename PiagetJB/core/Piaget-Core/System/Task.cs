@@ -3,9 +3,8 @@ using System.Threading;
 using Yieldable = System.Collections.IEnumerator;
 
 using Piaget_Core.Lib;
-using Piaget_Core.System;
 
-namespace Piaget_Core {
+namespace Piaget_Core.System {
 
     public interface IPiagetTask {
         string Name { get; }
@@ -13,50 +12,48 @@ namespace Piaget_Core {
         //
         void SetState(Action state_action_proc);
         void SetState(Func<Yieldable> state_yieldable_proc, int dummy = 0); // See comment below for the dummy parameter
-        void SetSleep(long time);
+        void SetSleep(double time);
         void AddParallelTask(string name, WithTasking task, double sw_period);
         void AddChildTask(string name, WithTasking task, double sw_period);
         void SetTerminated();
     }
 
     public class PiagetTask : DoubleLinkedNode<PiagetTask>, IPiagetTask {
-        private string name;
+
         protected Clock clock;
         private ITaskPoolManager task_manager;
-        private long wakeup_sw_time;
 
         private Action state_action_proc;
         private Func<Yieldable> state_yieldable_proc;
         private Yieldable state_current_exec;
 
-        public long sw_period;
-        public double SWPeriod {
-            get {
-                return (double)this.sw_period;
-            }
+        private string name;
+        public string Name {
+            get { return this.name; }
         }
 
+        public long sw_period;
+        public double SWPeriod {
+            get { return (double)this.sw_period; }
+        }
+
+        private long wakeup_sw_time;
         public long WakeupSWTime {
             get { return this.wakeup_sw_time; }
         }
 
-        public void Init(string name, double sw_period, ITaskPoolManager task_manager, Clock clock, Action user_reset) {
+        public void Init(string name, double period, Clock clock, Action user_reset,
+                         ITaskPoolManager task_manager) {
             this.name = name;
-            this.sw_period = (long)sw_period;
+            this.sw_period = (long)period;
             this.clock = clock;
             this.task_manager = task_manager;
             ResetWakeupTime();
             user_reset();
         }
-        
+
         public void ResetWakeupTime() {
             this.wakeup_sw_time = clock.ElapsedSWTime + this.sw_period;
-        }
-
-        public string Name {
-            get {
-                return this.name;
-            }
         }
 
         public void SetState(Action state_action_proc) {
@@ -84,18 +81,18 @@ namespace Piaget_Core {
             this.wakeup_sw_time += sw_period;
         }
 
-        public void SetSleep(long time) {
-            this.wakeup_sw_time += time - sw_period; // "- sw_period" to cancel the += sw_period at the end of Exec()
+        public void SetSleep(double time) {
+            this.wakeup_sw_time += (long)time - sw_period; // "- sw_period" to cancel the += sw_period at the end of Exec()
         }
 
         public void Sleep() {
             long time_to_sleep = (long)(this.wakeup_sw_time - clock.ElapsedSWTime);
-            if (time_to_sleep > Config.SleepTimeIncrement) {
+            if (time_to_sleep > SystemConfig.SleepTimeIncrement) {
                 Thread.Sleep(Clock.ToSleepTime(time_to_sleep));
             }
         }
 
-        public void AddParallelTask (string name, WithTasking task, double period) {
+        public void AddParallelTask(string name, WithTasking task, double period) {
             this.task_manager.AddParallelTask(name, task, period);
         }
 

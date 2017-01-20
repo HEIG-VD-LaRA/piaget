@@ -1,21 +1,21 @@
-﻿using System.Threading.Tasks;
-
-using Piaget_Core.System;
+﻿using Piaget_Core.System;
 using System.Windows.Forms;
 using System.Threading;
 
 namespace Piaget_Core {
-    public class PiagetJB {
+    public class Piaget {
         private Thread task_manager_thread;
         private ITasksLauncher task_manager;
-        public long ElapsedSWTime {
-            get { return this.task_manager.Clock.ElapsedSWTime; }
-        }
-        public double ElapsedTime {
+
+        public double ApplicationElapsedTime {
             get { return this.task_manager.Clock.ElapsedTime; }
         }
 
-        public PiagetJB() {
+        public string ApplicationElapsedTimeFormatted {
+            get { return Time.Format(this.task_manager.Clock.ElapsedTime); }
+        }
+
+        public Piaget() {
             task_manager = (ITasksLauncher)new TaskManager();
         }
 
