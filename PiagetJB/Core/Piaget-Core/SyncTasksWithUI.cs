@@ -27,8 +27,8 @@ namespace Piaget_Core {
         }
 
         public void Invoke(Action action) {
-            while (this.action_from_UI != null) { }
             this.action_from_UI = action;
+            Misc.SleepWhile(() => this.action_from_UI != null);
         }
     }
 }

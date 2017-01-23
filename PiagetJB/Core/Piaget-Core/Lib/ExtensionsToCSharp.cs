@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace Piaget_Core {
@@ -27,6 +28,14 @@ namespace Piaget_Core {
         public static void BeginInvoke(this Control control, Action action) {
             control.BeginInvoke((Delegate)action);
         }
+        
+    }
 
+    public static class Misc {
+        public static void SleepWhile(Func<bool> condition) {
+            while (condition()) {
+                Thread.Sleep(1);
+            }
+        }
     }
 }
