@@ -10,7 +10,7 @@ namespace Piaget_Core {
         private ITasksLauncher task_manager;
         private Form frm;
         private SyncUIWithTasks sync_task;
-        private bool is_started;
+        private bool is_stopped;
 
         public double ApplicationElapsedTime {
             get { return this.task_manager.Clock.ElapsedTime; }
@@ -24,36 +24,33 @@ namespace Piaget_Core {
             this.frm = frm;
             this.sync_task = new SyncUIWithTasks();
             this.task_manager = (ITasksLauncher)new TaskManager(this.sync_task);
-            this.is_started = false;
-            if (System.Windows.Application.Current == null) {
-                new System.Windows.Application();
-            }
+            this.is_stopped = true;
         }
 
         public void AddTask(string name, WithTasking task, double period) {
             // Avoid concurrency issues when the UI thread add a task while the task manager is running (in a different thread),
             // which could result of both of them reading and/or modifying the task pool at the same time, which could corrupt
             // the task list of the task pool.
-            if (UIThread() && this.is_started) {
-                Invoke(() => this.task_manager.AddParallelTask(name, task, period));
-            } else {
+            if (this.is_stopped || OnTaskManagerThread()) {
                 this.task_manager.AddParallelTask(name, task, period);
+            } else {
+                Invoke(() => this.task_manager.AddParallelTask(name, task, period));
             }
         }
 
         public void Start() {
             this.task_manager_thread = new Thread(this.task_manager.Start);
             this.task_manager_thread.Start();
-            this.is_started = true;
+            this.is_stopped = false;
         }
 
         public void Stop() {
-            if (! UIThread()) {
+            if (OnTaskManagerThread()) {
                 throw new Exception("Must be called by the UI thread because the task manager thread will be aborted !");
             }
             this.task_manager_thread.Abort();
             this.task_manager.TerminateAll();
-            this.is_started = false;
+            this.is_stopped = true;
         }
 
         // Use this method to avoid concurrency issues when changing internal variables
@@ -71,8 +68,8 @@ namespace Piaget_Core {
 
         // PRIVATE METHODS ------------------------------------------------
 
-        private bool UIThread() {
-            return (System.Windows.Application.Current.Dispatcher.CheckAccess());
+        private bool OnTaskManagerThread() {
+            return this.frm.InvokeRequired;
         }
 
     }

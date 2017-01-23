@@ -96,7 +96,7 @@
             this.Controls.Add(this.tbMeasures);
             this.Controls.Add(this.btnGo);
             this.Name = "frmPerformanceTest";
-            this.Text = "Form1";
+            this.Text = "Performance test";
             this.ResumeLayout(false);
             this.PerformLayout();
 

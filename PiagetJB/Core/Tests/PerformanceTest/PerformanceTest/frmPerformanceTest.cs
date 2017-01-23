@@ -51,11 +51,9 @@ namespace PerformanceTest {
 
         private void PrepareForOneMoreTask(double elapsed_time) {
             double T_tasks = elapsed_time / (double)this.N_cycles;
-            this.Invoke(() => {
-                tbMeasures.AppendText("n = " + this.n_tasks.ToString() + " : " + Time.Format(T_tasks) +
-                                      " (" + Time.Format(T_tasks / this.n_tasks) + " per task execution)" +
-                                      NewLine);
-            } );
+            tbMeasures.AppendText("n = " + this.n_tasks.ToString() + " : " + Time.Format(T_tasks) +
+                                    " (" + Time.Format(T_tasks / this.n_tasks) + " per task execution)" +
+                                    NewLine);
             this.n_tasks++;
             this.N_cycles = N_Cycles_0 / n_tasks;
         }
