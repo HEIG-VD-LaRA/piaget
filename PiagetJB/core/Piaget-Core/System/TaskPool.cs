@@ -1,7 +1,7 @@
 ﻿using System;
 using Piaget_Core.Lib;
 
-namespace Piaget_Core.System {
+namespace Piaget_Core.Base {
 
     public class TaskPoolNode : DoubleLinkedNode<TaskPoolNode> {
         public PiagetTask task;
@@ -14,8 +14,7 @@ namespace Piaget_Core.System {
         //
         // When running, the task manager needs that there is at least one task in the pool.
         // So when there is no tasks to be executed, null_task will appear in the pool.
-        private readonly PiagetTask null_task = new PiagetTask();
-        private readonly long null_task_period = (long)(100.0 * Time.ms);
+        private PiagetTask persistant_task;
 
         public TaskPoolNode Current {
             get { return this.First; }
@@ -23,33 +22,24 @@ namespace Piaget_Core.System {
         }
 
         static private Func<TaskPoolNode, long> get_wakeup_time = delegate (TaskPoolNode node) { return node.task.WakeupSWTime; };
-        public TaskPool(Clock clock) : base(get_wakeup_time) {
-            this.null_task.Init("Null task", null_task_period, clock, () => { }, null);
-            this.null_task.SetState(() => { }); // void procedure to be executed
-            Add(new TaskPoolNode(this.null_task));
+        public TaskPool(PiagetTask persistant_task) : base(get_wakeup_time) {
+            this.persistant_task = persistant_task;
+            Add(new TaskPoolNode(persistant_task));
         }
 
         public void Reset() {
             Current.next = Current;
             Current.previous = Current;
-            Current.task = this.null_task;
+            Current.task = this.persistant_task;
         }
 
         public void Add(PiagetTask task) {
-            if (Current.task == this.null_task) { // First task to be added ?
-                Current.task = task;
-            } else {
-                TaskPoolNode task_pool_node = new TaskPoolNode(task);
-                Add(task_pool_node);
-            }
+            TaskPoolNode task_pool_node = new TaskPoolNode(task);
+            Add(task_pool_node);
         }
 
         public new void Remove(TaskPoolNode task_pool_node) {
-            if (task_pool_node == task_pool_node.next) { // Removing the last task in the pool ?
-                task_pool_node.task = null_task;
-            } else {
-                base.Remove(task_pool_node);
-            }
+            base.Remove(task_pool_node);
         }
 
         public void Remove(PiagetTask task) {

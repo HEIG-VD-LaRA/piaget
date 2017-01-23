@@ -15,6 +15,7 @@ namespace PerformanceTest {
 
         public frmPerformanceTest() {
             InitializeComponent();
+            this.piaget = new Piaget(this);
         }
 
         private void btnGo_Click(object sender, EventArgs e) {
@@ -36,14 +37,13 @@ namespace PerformanceTest {
 
         private void Restart() {
             this.n_done_tasks = 0;
-            this.piaget = new Piaget(this);
             for (int i = 1; i <= n_tasks; i++ ) {
                 // We want to make sure that no (or as less as possible) sleep occur as it is a performance test. 
                 // Therefore the task cycle is set to 1.0 which corresponds to the resolution of the clock (stopwatch)
                 if (this.rbNormal.Checked) {
-                    this.piaget.AddParallelTask("Task " + i.ToString(), new NormalInterruptTask(this.N_cycles, Done_Callback), 1.0);
+                    this.piaget.AddTask("Task " + i.ToString(), new NormalInterruptTask(this.N_cycles, Done_Callback), 1.0);
                 } else {
-                    this.piaget.AddParallelTask("Task " + i.ToString(), new YieldInterruptTask(this.N_cycles, Done_Callback), 1.0);
+                    this.piaget.AddTask("Task " + i.ToString(), new YieldInterruptTask(this.N_cycles, Done_Callback), 1.0);
                 }
             }
             this.piaget.Start();
@@ -64,9 +64,11 @@ namespace PerformanceTest {
             double elapsed_time = this.piaget.ApplicationElapsedTime;
             this.n_done_tasks++;
             if (this.n_done_tasks == this.n_tasks) {
-                this.piaget.Stop();
-                PrepareForOneMoreTask(elapsed_time);
-                Restart();
+                this.Invoke( () => {
+                    this.piaget.Stop();
+                    PrepareForOneMoreTask(elapsed_time);
+                    Restart();
+                });
             }
         }
     }

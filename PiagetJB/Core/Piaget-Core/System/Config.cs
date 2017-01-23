@@ -1,5 +1,5 @@
 ﻿
-namespace Piaget_Core.System {
+namespace Piaget_Core.Base {
 
     public class SystemConfig {
         // The time increment for the function used to make a sleep (Thread.Sleep)
@@ -8,6 +8,6 @@ namespace Piaget_Core.System {
     }
 
     public class Config {
-        static public readonly long SyncUISleep = (long)(200.0 * Time.ms);
+        static public readonly long SyncUISleep = (long)(50.0 * Time.ms);
     }
 }

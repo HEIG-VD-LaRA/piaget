@@ -4,7 +4,7 @@ using Yieldable = System.Collections.IEnumerator;
 
 using Piaget_Core.Lib;
 
-namespace Piaget_Core.System {
+namespace Piaget_Core.Base {
 
     public interface IPiagetTask {
         string Name { get; }
@@ -13,7 +13,7 @@ namespace Piaget_Core.System {
         void SetState(Action state_action_proc);
         void SetState(Func<Yieldable> state_yieldable_proc, int dummy = 0); // See comment below for the dummy parameter
         void SetSleep(double time);
-        void AddParallelTask(string name, WithTasking task, double sw_period);
+        void AddParallelTask(string name, WithTasking task, double period);
         void AddChildTask(string name, WithTasking task, double sw_period);
         void SetTerminated();
     }

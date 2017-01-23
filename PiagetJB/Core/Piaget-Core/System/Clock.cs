@@ -1,12 +1,16 @@
 ﻿using System.Diagnostics;
 
-namespace Piaget_Core.System {
+namespace Piaget_Core.Base {
     public class Clock {
 
         private Stopwatch stopwatch = new Stopwatch();
 
         public void Start() {
-            this.stopwatch.Start();
+            this.stopwatch.Restart();
+        }
+        public void Stop() {
+            this.stopwatch.Stop();
+            this.stopwatch = new Stopwatch(); // This avoids a performance issue when restarting
         }
 
         public double ElapsedTime {

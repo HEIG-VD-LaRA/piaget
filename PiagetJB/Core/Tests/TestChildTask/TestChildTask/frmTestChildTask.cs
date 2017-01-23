@@ -20,8 +20,8 @@ namespace TestChildTask {
             this.Invoke(() => {
                 this.tbMessages.AppendText("---- DONE ----" + NewLine);
                 this.btnGo.Text = "Go";
+                this.piaget.Stop();
             });
-            this.piaget.Stop();
         }
 
         private void btnGo_Click(object sender, EventArgs e) {
@@ -29,10 +29,10 @@ namespace TestChildTask {
                 this.tbMessages.Clear();
                 this.btnGo.Text = "Stop";
                 this.piaget = new Piaget(this);
-                this.piaget.AddParallelTask("Task level 0",
-                                            new SerialTask(0, (int)nbMaxLevel.Value, 
-                                                           FormUpdate_Callback, Done_Callback), 
-                                            1.0 * Time.sec);
+                this.piaget.AddTask("Task level 0",
+                                    new SerialTask(0, (int)nbMaxLevel.Value, 
+                                                   FormUpdate_Callback, Done_Callback), 
+                                    1.0 * Time.sec);
                 this.piaget.Start();
             } else {
                 this.btnGo.Text = "Go";

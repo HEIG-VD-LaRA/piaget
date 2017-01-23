@@ -1,4 +1,4 @@
-﻿using Piaget_Core.System;
+﻿using Piaget_Core.Base;
 using System;
 using System.Windows.Forms;
 
@@ -9,11 +9,9 @@ namespace Piaget_Core {
     }
 
     public class SyncUIWithTasks : WithTasking, ISyncWithTasks {
-        private Form frm;
         private Action action_from_UI;
 
-        public SyncUIWithTasks(Form frm) {
-            this.frm = frm;
+        public SyncUIWithTasks() {
             this.action_from_UI = null;
         }
 

@@ -16,7 +16,7 @@ namespace DemoApplication {
             this.btnStop.Enabled = true;
             this.tbMessages.Clear();
             this.piaget = new Piaget(this);
-            this.piaget.AddParallelTask("Main task", new MainTask(AppendMessage_Callback), 1.0 * Time.sec);
+            this.piaget.AddTask("Main task", new MainTask(AppendMessage_Callback), 1.0 * Time.sec);
             this.piaget.Start();
         }
         public void AppendMessage_Callback(string message) {

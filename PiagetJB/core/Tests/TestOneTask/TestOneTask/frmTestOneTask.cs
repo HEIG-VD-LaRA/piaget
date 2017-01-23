@@ -18,7 +18,7 @@ namespace TestOneApp {
 
         private void btnGo_Click(object sender, EventArgs e) {
             this.piaget = new Piaget(this);
-            this.piaget.AddParallelTask("The task !", new SingleTask(UpdateMeasure), 50.0 * Time.us);
+            this.piaget.AddTask("The task !", new SingleTask(UpdateMeasure), 50.0 * Time.us);
             this.piaget.Start();
 
             this.update_thread = new Thread(UpdateForm);
