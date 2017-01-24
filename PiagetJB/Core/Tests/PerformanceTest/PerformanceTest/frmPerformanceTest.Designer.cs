@@ -97,6 +97,7 @@
             this.Controls.Add(this.btnGo);
             this.Name = "frmPerformanceTest";
             this.Text = "Performance test";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmPerformanceTest_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 

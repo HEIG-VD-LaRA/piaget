@@ -69,5 +69,9 @@ namespace PerformanceTest {
                 });
             }
         }
+
+        private void frmPerformanceTest_FormClosing(object sender, FormClosingEventArgs e) {
+            this.piaget.Stop();
+        }
     }
 }

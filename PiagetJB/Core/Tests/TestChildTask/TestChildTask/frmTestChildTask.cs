@@ -39,5 +39,9 @@ namespace TestChildTask {
                 this.piaget.Stop();
             }
         }
+
+        private void frmTestChildTask_FormClosing(object sender, FormClosingEventArgs e) {
+            this.piaget.Stop();
+        }
     }
 }

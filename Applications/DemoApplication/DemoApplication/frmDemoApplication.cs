@@ -29,5 +29,9 @@ namespace DemoApplication {
             this.btnStop.Enabled = false;
             this.piaget.Stop();
         }
+
+        private void frmDemoApplication_FormClosing(object sender, FormClosingEventArgs e) {
+            this.piaget.Stop();
+        }
     }
 }

@@ -72,6 +72,7 @@
             this.Controls.Add(this.btnGo);
             this.Name = "frmDemoApplication";
             this.Text = "Demo application";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmDemoApplication_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 

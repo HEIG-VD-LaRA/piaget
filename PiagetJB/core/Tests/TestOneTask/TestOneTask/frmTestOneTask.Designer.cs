@@ -181,6 +181,7 @@
             this.Controls.Add(this.Btn_Go);
             this.Name = "frmTestOneTask";
             this.Text = "Test with one task";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmTestOneTask_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 

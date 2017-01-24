@@ -96,6 +96,7 @@
             this.Controls.Add(this.btnGo);
             this.Name = "frmTestChildTask";
             this.Text = "Test child tasks";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmTestChildTask_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.nbMaxLevel)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

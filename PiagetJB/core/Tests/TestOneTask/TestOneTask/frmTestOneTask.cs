@@ -25,6 +25,11 @@ namespace TestOneApp {
             this.update_thread.Start();
         }
 
+        private void frmTestOneTask_FormClosing(object sender, FormClosingEventArgs e) {
+            this.piaget.Stop();
+            this.update_thread.Abort();
+        }
+
         private void UpdateMeasure(ErrorValue time_error) {
             this.elapsed_time_ref = time_error.ElapsedTime;
             this.absolute_error = time_error.Absolute;
