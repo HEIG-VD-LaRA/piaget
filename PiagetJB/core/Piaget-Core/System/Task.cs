@@ -6,18 +6,6 @@ using Piaget_Core.Lib;
 
 namespace Piaget_Core.Base {
 
-    public interface IPiagetTask {
-        string Name { get; }
-        double SWPeriod { get; }
-        //
-        void SetState(Action state_action_proc);
-        void SetState(Func<Yieldable> state_yieldable_proc, int dummy = 0); // See comment below for the dummy parameter
-        void SetSleep(double time);
-        void AddParallelTask(string name, WithTasking task, double period);
-        void AddChildTask(string name, WithTasking task, double sw_period);
-        void SetTerminated();
-    }
-
     public class PiagetTask : DoubleLinkedNode<PiagetTask>, IPiagetTask {
         
         protected Clock clock;
@@ -33,7 +21,7 @@ namespace Piaget_Core.Base {
         }
 
         public long sw_period;
-        public double SWPeriod {
+        public double Period {
             get { return (double)this.sw_period; }
         }
 

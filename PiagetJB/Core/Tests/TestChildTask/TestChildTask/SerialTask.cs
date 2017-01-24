@@ -31,7 +31,7 @@ namespace TestChildTask {
                 this.Task.AddChildTask("Task level " + (level + 1), 
                                        new SerialTask(this.level + 1, max_level, 
                                                       this.update_form_callback),
-                                       this.Task.SWPeriod);
+                                       this.Task.Period);
             }
             this.Task.SetState(LastState);
         }

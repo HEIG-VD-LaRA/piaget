@@ -32,7 +32,7 @@
             // 
             // btnGo
             // 
-            this.btnGo.Location = new System.Drawing.Point(195, 262);
+            this.btnGo.Location = new System.Drawing.Point(195, 378);
             this.btnGo.Name = "btnGo";
             this.btnGo.Size = new System.Drawing.Size(75, 23);
             this.btnGo.TabIndex = 0;
@@ -49,7 +49,7 @@
             this.tbMeasures.ReadOnly = true;
             this.tbMeasures.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.tbMeasures.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbMeasures.Size = new System.Drawing.Size(258, 193);
+            this.tbMeasures.Size = new System.Drawing.Size(258, 317);
             this.tbMeasures.TabIndex = 21;
             this.tbMeasures.TabStop = false;
             this.tbMeasures.WordWrap = false;
@@ -57,7 +57,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 227);
+            this.label1.Location = new System.Drawing.Point(9, 343);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(116, 13);
             this.label1.TabIndex = 23;
@@ -67,7 +67,7 @@
             // 
             this.rbNormal.AutoSize = true;
             this.rbNormal.Checked = true;
-            this.rbNormal.Location = new System.Drawing.Point(12, 245);
+            this.rbNormal.Location = new System.Drawing.Point(12, 361);
             this.rbNormal.Name = "rbNormal";
             this.rbNormal.Size = new System.Drawing.Size(58, 17);
             this.rbNormal.TabIndex = 24;
@@ -78,7 +78,7 @@
             // rbWithYields
             // 
             this.rbWithYields.AutoSize = true;
-            this.rbWithYields.Location = new System.Drawing.Point(12, 268);
+            this.rbWithYields.Location = new System.Drawing.Point(12, 384);
             this.rbWithYields.Name = "rbWithYields";
             this.rbWithYields.Size = new System.Drawing.Size(76, 17);
             this.rbWithYields.TabIndex = 25;
@@ -89,7 +89,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(282, 302);
+            this.ClientSize = new System.Drawing.Size(282, 413);
             this.Controls.Add(this.rbWithYields);
             this.Controls.Add(this.rbNormal);
             this.Controls.Add(this.label1);
